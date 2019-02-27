@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Online_Skak", "Online_Skak\Online_Skak.csproj", "{AFB1A7AC-51E0-4815-BB48-DEBAEA7E367F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFB1A7AC-51E0-4815-BB48-DEBAEA7E367F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFB1A7AC-51E0-4815-BB48-DEBAEA7E367F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFB1A7AC-51E0-4815-BB48-DEBAEA7E367F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFB1A7AC-51E0-4815-BB48-DEBAEA7E367F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BD7DCC1-0BB3-4402-AABF-7DC938F4527B}
+	EndGlobalSection
+EndGlobal

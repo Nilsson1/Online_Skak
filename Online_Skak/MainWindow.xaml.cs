@@ -22,6 +22,7 @@ namespace Online_Skak
     {
         public MainWindow()
         {
+
             InitializeComponent();
         }
     }

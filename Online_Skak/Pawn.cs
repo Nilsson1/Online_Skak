@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Online_Skak
 {
-    class 
+    class Pawn
     {
+
     }
 }

@@ -11,14 +11,14 @@ namespace Online_Skak
     public partial class MainWindow
     {
         DynamicGridBuilder dynamicGridBuilder = null;
-        Class1 test = new Class1 {Name = "Lukas er noob"};
+        
         
         public MainWindow()
         {
             InitializeComponent();
             dynamicGridBuilder = new DynamicGridBuilder();
             dynamicGridBuilder.TextBlock();
-            this.DataContext = test;
+           
                 
         }
     }

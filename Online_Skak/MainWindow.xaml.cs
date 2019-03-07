@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,8 +19,13 @@ namespace Online_Skak
             InitializeComponent();
             dynamicGridBuilder = new DynamicGridBuilder();
             dynamicGridBuilder.TextBlock();
-           
+
+          //  dynamicGridBuilder.ButtonPosition(buttonArray, "3");
                 
+
+
         }
+
+
     }
 }

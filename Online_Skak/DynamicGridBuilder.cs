@@ -17,8 +17,6 @@ namespace Online_Skak
 
         Button [,] buttonArray = new Button[8, 8];
 
-        Polygon polygon = new Polygon();
-
         int counter = 0;
 
         private int InitRow;

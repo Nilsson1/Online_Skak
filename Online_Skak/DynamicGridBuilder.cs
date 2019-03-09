@@ -15,7 +15,7 @@ namespace Online_Skak
     {
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
-        Button [,] buttonArray = new Button[8, 8];
+        
 
         Polygon polygon = new Polygon();
 
@@ -25,8 +25,9 @@ namespace Online_Skak
         private int InitCol;
         private UIElement InitUE;
 
-        public void TextBlock()
+        public Button[,] TextBlock()
         {
+            Button[,] buttonArray = new Button[8, 8];
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
@@ -34,8 +35,8 @@ namespace Online_Skak
                     Button button = new Button();
                     if ((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0))
                     {
-                       button.Background = new SolidColorBrush(Colors.Black);
-                       button.Foreground = new SolidColorBrush(Colors.White);
+                        button.Background = new SolidColorBrush(Colors.Black);
+                        button.Foreground = new SolidColorBrush(Colors.White);
                     }
 
                     else
@@ -48,27 +49,36 @@ namespace Online_Skak
                     string counterString = counter.ToString();
 
 
-                    
+
                     button.Content = counterString;
-                    
+
                     Grid.SetRow(button, i);
                     Grid.SetColumn(button, j);
-                    button.Name = "btn" + counterString;
-                   
+                    if (i > 1 && i < 6) {
+                        button.Name = "board";
+                    }else{
+                        button.Name = "boardpiece";
+                    }
                     button.Click += new RoutedEventHandler(ClickedButton);
                     button.PreviewMouseLeftButtonDown += Btn_PreviewMouseLeftButtonDown;
                     button.PreviewMouseLeftButtonUp += Btn_PreviewMouseLeftButtonUp;
-
                     Form.GridName.Children.Add(button);
-                    buttonArray[i, j] = button;
+
                     counter++;
+                    buttonArray[i, j] = button; 
                 }
             }
+            return buttonArray;
         }
 
         private void Btn_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-           
+            Button s = (Button)sender;
+            if (s.Name == "board")
+            {
+                Console.WriteLine("clicked: " + s.Name);
+                return;
+            }
             InitUE = (UIElement)e.Source;
             InitCol = Grid.GetColumn(InitUE);
             InitRow = Grid.GetRow(InitUE);
@@ -78,7 +88,14 @@ namespace Online_Skak
 
         private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var element = (UIElement)e.Source;
+            Button s = (Button)sender;
+            if (s.Name == "board")
+            {
+                Console.WriteLine("clicked: " + s.Name);
+                return;
+            }
+
+            Button element = (Button)(UIElement)e.Source;
 
             double y = e.GetPosition(Form.GridName).Y;
             double start = 0.0;
@@ -105,17 +122,44 @@ namespace Online_Skak
                 column++;
             }
 
-            UIElement uIElement = GetChildren(Form.GridName, row, column);
-
-            Form.GridName.Children.Remove(uIElement);
+            //UIElement uIElement = GetChildren(Form.GridName, row, column);
+            Button button = (Button)GetChildren(Form.GridName, row, column);
+            Form.GridName.Children.Remove(button);
             
             Grid.SetColumn(element, column);
             Grid.SetRow(element, row);
 
-            Form.GridName.Children.Add(uIElement);
+            Console.WriteLine(row + "" + column);
 
-            Grid.SetColumn(uIElement, InitCol);
-            Grid.SetRow(uIElement, InitRow);
+            if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+            {
+                element.Background = new SolidColorBrush(Colors.Black);
+                element.Foreground = new SolidColorBrush(Colors.White);
+
+            }
+
+            else
+            {
+                element.Background = new SolidColorBrush(Colors.White);
+                element.Foreground = new SolidColorBrush(Colors.Black);
+            }
+
+            Form.GridName.Children.Add(button);
+
+            if ((InitRow % 2 == 0 && InitCol % 2 != 0) || (InitRow % 2 != 0 && InitCol % 2 == 0))
+            {
+                button.Background = new SolidColorBrush(Colors.Black);
+                button.Foreground = new SolidColorBrush(Colors.White);
+
+            }
+
+            else
+            {
+                button.Background = new SolidColorBrush(Colors.White);
+                button.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            Grid.SetColumn(button, InitCol);
+            Grid.SetRow(button, InitRow);
 
             Console.WriteLine("MouseLeftButtonUp {0} -- {1}", row, column);
         }

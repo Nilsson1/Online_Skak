@@ -18,7 +18,7 @@ namespace Online_Skak
         {
             InitializeComponent();
             dynamicGridBuilder = new DynamicGridBuilder();
-            dynamicGridBuilder.TextBlock();
+            dynamicGridBuilder.ButtonCreater();
 
           //  dynamicGridBuilder.ButtonPosition(buttonArray, "3");
                 

@@ -14,18 +14,13 @@ namespace Online_Skak
     public class DynamicGridBuilder
     {
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
-
-        
-
-        Polygon polygon = new Polygon();
-
-        int counter = 0;
-
+      
+        private int counter = 0;
         private int InitRow;
         private int InitCol;
         private UIElement InitUE;
 
-        public Button[,] TextBlock()
+        public Button[,] ButtonCreater()
         {
             Button[,] buttonArray = new Button[8, 8];
             for (int i = 0; i < 8; i++)
@@ -37,28 +32,23 @@ namespace Online_Skak
                     {
                         button.Background = new SolidColorBrush(Colors.Black);
                         button.Foreground = new SolidColorBrush(Colors.White);
-                    }
-
-                    else
+                    }else
                     {
                         button.Background = new SolidColorBrush(Colors.White);
                     }
 
-
-
                     string counterString = counter.ToString();
-
-
-
                     button.Content = counterString;
 
                     Grid.SetRow(button, i);
                     Grid.SetColumn(button, j);
+
                     if (i > 1 && i < 6) {
                         button.Name = "board";
                     }else{
                         button.Name = "boardpiece";
                     }
+
                     button.Click += new RoutedEventHandler(ClickedButton);
                     button.PreviewMouseLeftButtonDown += Btn_PreviewMouseLeftButtonDown;
                     button.PreviewMouseLeftButtonUp += Btn_PreviewMouseLeftButtonUp;
@@ -135,10 +125,7 @@ namespace Online_Skak
             {
                 element.Background = new SolidColorBrush(Colors.Black);
                 element.Foreground = new SolidColorBrush(Colors.White);
-
-            }
-
-            else
+            } else
             {
                 element.Background = new SolidColorBrush(Colors.White);
                 element.Foreground = new SolidColorBrush(Colors.Black);
@@ -150,17 +137,14 @@ namespace Online_Skak
             {
                 button.Background = new SolidColorBrush(Colors.Black);
                 button.Foreground = new SolidColorBrush(Colors.White);
-
-            }
-
-            else
+            } else
             {
                 button.Background = new SolidColorBrush(Colors.White);
                 button.Foreground = new SolidColorBrush(Colors.Black);
             }
+
             Grid.SetColumn(button, InitCol);
             Grid.SetRow(button, InitRow);
-
             Console.WriteLine("MouseLeftButtonUp {0} -- {1}", row, column);
         }
 
@@ -181,7 +165,6 @@ namespace Online_Skak
 
         private void ClickedButton(object sender, EventArgs e)
         {
-
             Button s = (Button)sender;
             //MessageBox.Show("you have clicked button:" + s.Name);
         }

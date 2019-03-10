@@ -18,12 +18,12 @@ namespace Online_Skak
         private int counter = 0;
         private int InitRow;
         private int InitCol;
-        private UIElement InitUE;
-        private bool defaultButtonIsBlack;
         private bool firstButtonIsBlack;
         private bool secondButtonIsBlack;
         private Button buttonSwap;
+        private Button element;
 
+        //Creates 64 buttons for the chess board.
         public Button[,] CreateBoardButtons()
         {
             Button[,] buttonArray = new Button[8, 8];
@@ -33,36 +33,16 @@ namespace Online_Skak
                 {
                     Button button = new Button();
 
-                    defaultButtonIsBlack = (i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0);
-                    if (defaultButtonIsBlack)
-                    {
-                        SetColor(button, "Black");
-                    }
-                    else
-                    {
-                        SetColor(button, "White");
-                    }
-          
-                    string counterString = counter.ToString();
-                    
-                    button.Content = counterString;
-
-                    Grid.SetRow(button, i);
-                    Grid.SetColumn(button, j);
-
-                    if (i > 1 && i < 6)
-                    {
-                        button.Name = "board";
-                        //button.IsEnabled = false;
-                    }
-                    else
-                    {
-                        button.Name = "boardpiece";
-                    }
+                    SetDefaultButtonColor(button, i, j);
+                    SetButtonPosition(button, i, j);
+                    SetButtonName(button, i);
+                    SetButtonContent(button, counter);
 
                     button.Click += new RoutedEventHandler(ClickedButton);
+
                     button.PreviewMouseLeftButtonDown += Btn_PreviewMouseLeftButtonDown;
                     button.PreviewMouseLeftButtonUp += Btn_PreviewMouseLeftButtonUp;
+
                     Form.GridName.Children.Add(button);
 
                     counter++;
@@ -72,42 +52,52 @@ namespace Online_Skak
             return buttonArray;
         }
 
+        //This happens when leftmousebutton is held down.
         private void Btn_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Button s = (Button)sender;
-            if (s.Name == "board")
-            {
-                Console.WriteLine("clicked: " + s.Name);
-                return;
-            }
-            InitUE = (UIElement)e.Source;
-            InitCol = Grid.GetColumn(InitUE);
-            InitRow = Grid.GetRow(InitUE);
+            if (CheckIfBoard(sender)) return;
+            InitRow = GetRow(e);
+            InitCol = GetColumn(e);
         }
 
+        //This happens when leftmousebutton is released.
         private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Button s = (Button)sender;
+            if (CheckIfBoard(sender)) return;
+
+            int row = GetRow(e);
+            int column = GetColumn(e);
+
+            buttonSwap = (Button)GetChildren(Form.GridName, row, column);
+            element = (Button)(UIElement)e.Source;
+            
+            SetButtonPosition(buttonSwap, InitRow, InitCol);
+            SetButtonPosition(element, row, column);
+
+            SetButtonColor(InitRow, InitCol, row, column);
+        }
+
+        //Sets the button in the grid according to the desired position.
+        private void SetButtonPosition(Button button, int row, int column)
+        {
+            Grid.SetRow(button, row);
+            Grid.SetColumn(button, column);
+        }
+
+        //Checks if the current button is an empty board or a moveable chesspiece.
+        private bool CheckIfBoard(object sender){
+            Button s = (Button)sender;     
             if (s.Name == "board")
             {
                 Console.WriteLine("clicked: " + s.Name);
-                return;
+                return true;
             }
+            return false;
+        }
 
-            Button element = (Button)(UIElement)e.Source;
-
-            double y = e.GetPosition(Form.GridName).Y;
-            double start = 0.0;
-            int row = 0;
-            foreach (RowDefinition rd in Form.GridName.RowDefinitions)
-            {
-                start += rd.ActualHeight;
-                if (y < start)
-                {
-                    break;
-                }
-                row++;
-            }
+        //Returns the column.
+        private int GetColumn(MouseButtonEventArgs e)
+        {
             double x = e.GetPosition(Form.GridName).X;
             double cstart = 0.0;
             int column = 0;
@@ -120,37 +110,28 @@ namespace Online_Skak
                 }
                 column++;
             }
-           
-            buttonSwap = (Button)GetChildren(Form.GridName, row, column);
-
-            Grid.SetColumn(element, column);
-            Grid.SetRow(element, row);
-
-            Grid.SetColumn(buttonSwap, InitCol);
-            Grid.SetRow(buttonSwap, InitRow);
-
-            firstButtonIsBlack = (InitRow % 2 == 0 && InitCol % 2 != 0) || (InitRow % 2 != 0 && InitCol % 2 == 0);
-            secondButtonIsBlack = (row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0);
-
-            if (firstButtonIsBlack)
-            {
-                SetColor(buttonSwap, "Black");
-            }
-            else
-            {
-                SetColor(buttonSwap, "White");
-            }
-
-            if (secondButtonIsBlack)
-            {
-                SetColor(element, "Black");
-            }
-            else
-            {
-                SetColor(element, "White");
-            }
+            return column;
         }
 
+        //Returns the row.
+        private int GetRow(MouseButtonEventArgs e)
+        {
+            double y = e.GetPosition(Form.GridName).Y;
+            double start = 0.0;
+            int row = 0;
+            foreach (RowDefinition rd in Form.GridName.RowDefinitions)
+            {
+                start += rd.ActualHeight;
+                if (y < start)
+                {
+                    break;
+                }
+                row++;
+            }
+            return row;
+        }
+
+        //Returns the button to swap with.
         private UIElement GetChildren(Grid grid, int row, int column)
         {
             foreach (UIElement child in grid.Children)
@@ -159,6 +140,7 @@ namespace Online_Skak
                       &&
                    Grid.GetColumn(child) == column)
                 {
+                    //Console.WriteLine(child);
                     return child;
                 }
             }
@@ -166,23 +148,77 @@ namespace Online_Skak
             return null;
         }
 
+        //This happens when a button is clicked, but it doesnt do anything, but could be used. 
         private void ClickedButton(object sender, EventArgs e)
         {
             Button s = (Button)sender;
             //MessageBox.Show("you have clicked button:" + s.Name);
         }
 
-        private void SetColor(Button button, string ButtonColor)
+        //Sets the name of a button.
+        private void SetButtonName(Button button, int i)
         {
-            if (ButtonColor == "White")
+            if (i > 1 && i < 6)
             {
-                button.Background = new SolidColorBrush(Colors.White);
-                button.Foreground = new SolidColorBrush(Colors.Black);
+                button.Name = "board";
+                //button.IsEnabled = false;
             }
             else
             {
-                button.Background = new SolidColorBrush(Colors.Black);
-                button.Foreground = new SolidColorBrush(Colors.White);
+                button.Name = "boardpiece";
+            }
+        }
+
+        //Sets the content of a button.
+        private void SetButtonContent(Button button, int counter)
+        {
+            string counterString = counter.ToString();
+            button.Content = counterString;
+        }
+
+        //Sets the fore- and background color of a button.
+        private void SetColor(Button button, Color colorFG, Color colorBG)
+        {
+                button.Background = new SolidColorBrush(colorBG);
+                button.Foreground = new SolidColorBrush(colorFG);
+        }
+
+        //Sets the fore- and background color of both buttons that are swapping positions.
+        private void SetButtonColor(int row1, int col1, int row2, int col2) 
+        {
+            firstButtonIsBlack = (row1 % 2 == 0 && col1 % 2 != 0) || (row1 % 2 != 0 && col1 % 2 == 0);
+            secondButtonIsBlack = (row2 % 2 == 0 && col2 % 2 != 0) || (row2 % 2 != 0 && col2 % 2 == 0);
+
+            if (firstButtonIsBlack)
+            {
+                SetColor(buttonSwap, Colors.Black, Colors.White);
+            }
+            else
+            {
+                SetColor(buttonSwap, Colors.White, Colors.Black);
+            }
+
+            if (secondButtonIsBlack)
+            {
+                SetColor(element, Colors.Black, Colors.White);
+            }
+            else
+            {
+                SetColor(element, Colors.White, Colors.Black);
+            }
+        }
+
+        //Sets the fore- and background color of a button that is created at the start of the game.
+        private void SetDefaultButtonColor(Button button, int i, int j)
+        {
+            bool defaultButtonIsBlack = (i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0);
+            if (defaultButtonIsBlack)
+            {
+                SetColor(button, Colors.Black, Colors.White);
+            }
+            else
+            {
+                SetColor(button, Colors.White, Colors.Black);
             }
         }
     }

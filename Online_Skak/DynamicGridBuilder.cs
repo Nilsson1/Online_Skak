@@ -14,13 +14,17 @@ namespace Online_Skak
     public class DynamicGridBuilder
     {
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
-      
+
         private int counter = 0;
         private int InitRow;
         private int InitCol;
         private UIElement InitUE;
+        private bool defaultButtonIsBlack;
+        private bool firstButtonIsBlack;
+        private bool secondButtonIsBlack;
+        private Button buttonSwap;
 
-        public Button[,] ButtonCreater()
+        public Button[,] CreateBoardButtons()
         {
             Button[,] buttonArray = new Button[8, 8];
             for (int i = 0; i < 8; i++)
@@ -28,24 +32,31 @@ namespace Online_Skak
                 for (int j = 0; j < 8; j++)
                 {
                     Button button = new Button();
-                    if ((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0))
-                    {
-                        button.Background = new SolidColorBrush(Colors.Black);
-                        button.Foreground = new SolidColorBrush(Colors.White);
-                    }else
-                    {
-                        button.Background = new SolidColorBrush(Colors.White);
-                    }
 
+                    defaultButtonIsBlack = (i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0);
+                    if (defaultButtonIsBlack)
+                    {
+                        SetColor(button, "Black");
+                    }
+                    else
+                    {
+                        SetColor(button, "White");
+                    }
+          
                     string counterString = counter.ToString();
+                    
                     button.Content = counterString;
 
                     Grid.SetRow(button, i);
                     Grid.SetColumn(button, j);
 
-                    if (i > 1 && i < 6) {
+                    if (i > 1 && i < 6)
+                    {
                         button.Name = "board";
-                    }else{
+                        //button.IsEnabled = false;
+                    }
+                    else
+                    {
                         button.Name = "boardpiece";
                     }
 
@@ -55,7 +66,7 @@ namespace Online_Skak
                     Form.GridName.Children.Add(button);
 
                     counter++;
-                    buttonArray[i, j] = button; 
+                    buttonArray[i, j] = button;
                 }
             }
             return buttonArray;
@@ -72,8 +83,6 @@ namespace Online_Skak
             InitUE = (UIElement)e.Source;
             InitCol = Grid.GetColumn(InitUE);
             InitRow = Grid.GetRow(InitUE);
-
-            Console.WriteLine(InitRow + "," + InitCol);
         }
 
         private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -111,41 +120,35 @@ namespace Online_Skak
                 }
                 column++;
             }
+           
+            buttonSwap = (Button)GetChildren(Form.GridName, row, column);
 
-            //UIElement uIElement = GetChildren(Form.GridName, row, column);
-            Button button = (Button)GetChildren(Form.GridName, row, column);
-            Form.GridName.Children.Remove(button);
-            
             Grid.SetColumn(element, column);
             Grid.SetRow(element, row);
 
-            Console.WriteLine(row + "" + column);
+            Grid.SetColumn(buttonSwap, InitCol);
+            Grid.SetRow(buttonSwap, InitRow);
 
-            if ((row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0))
+            firstButtonIsBlack = (InitRow % 2 == 0 && InitCol % 2 != 0) || (InitRow % 2 != 0 && InitCol % 2 == 0);
+            secondButtonIsBlack = (row % 2 == 0 && column % 2 != 0) || (row % 2 != 0 && column % 2 == 0);
+
+            if (firstButtonIsBlack)
             {
-                element.Background = new SolidColorBrush(Colors.Black);
-                element.Foreground = new SolidColorBrush(Colors.White);
-            } else
+                SetColor(buttonSwap, "Black");
+            }
+            else
             {
-                element.Background = new SolidColorBrush(Colors.White);
-                element.Foreground = new SolidColorBrush(Colors.Black);
+                SetColor(buttonSwap, "White");
             }
 
-            Form.GridName.Children.Add(button);
-
-            if ((InitRow % 2 == 0 && InitCol % 2 != 0) || (InitRow % 2 != 0 && InitCol % 2 == 0))
+            if (secondButtonIsBlack)
             {
-                button.Background = new SolidColorBrush(Colors.Black);
-                button.Foreground = new SolidColorBrush(Colors.White);
-            } else
-            {
-                button.Background = new SolidColorBrush(Colors.White);
-                button.Foreground = new SolidColorBrush(Colors.Black);
+                SetColor(element, "Black");
             }
-
-            Grid.SetColumn(button, InitCol);
-            Grid.SetRow(button, InitRow);
-            Console.WriteLine("MouseLeftButtonUp {0} -- {1}", row, column);
+            else
+            {
+                SetColor(element, "White");
+            }
         }
 
         private UIElement GetChildren(Grid grid, int row, int column)
@@ -160,13 +163,27 @@ namespace Online_Skak
                 }
             }
             Console.WriteLine("Returned null in GetChildren");
-            return null ;
+            return null;
         }
 
         private void ClickedButton(object sender, EventArgs e)
         {
             Button s = (Button)sender;
             //MessageBox.Show("you have clicked button:" + s.Name);
+        }
+
+        private void SetColor(Button button, string ButtonColor)
+        {
+            if (ButtonColor == "White")
+            {
+                button.Background = new SolidColorBrush(Colors.White);
+                button.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                button.Background = new SolidColorBrush(Colors.Black);
+                button.Foreground = new SolidColorBrush(Colors.White);
+            }
         }
     }
 }

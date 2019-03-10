@@ -12,20 +12,11 @@ namespace Online_Skak
     public partial class MainWindow
     {
         DynamicGridBuilder dynamicGridBuilder = null;
-        
-        
         public MainWindow()
         {
             InitializeComponent();
             dynamicGridBuilder = new DynamicGridBuilder();
-            dynamicGridBuilder.ButtonCreater();
-
-          //  dynamicGridBuilder.ButtonPosition(buttonArray, "3");
-                
-
-
+            dynamicGridBuilder.CreateBoardButtons();
         }
-
-
     }
 }

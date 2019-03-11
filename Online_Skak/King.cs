@@ -11,8 +11,6 @@ namespace Online_Skak
 {
     public class King : ButtonClass
     {
-
-        MainWindow Form = Application.Current.Windows[0] as MainWindow;
         public King(int row, int column)
         {
             Button kingButton = new Button();

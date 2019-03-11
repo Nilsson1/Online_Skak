@@ -18,7 +18,10 @@ namespace Online_Skak
         private int counter = 0;
         private Pawn pawn;
         private Tower tower;
+        private Knight knight;
         private Bishop bishop;
+        private King king;
+        private Queen queen;
         //Creates 64 buttons for the chess board.
         public Button[,] CreateBoardButtons()
         {
@@ -39,13 +42,30 @@ namespace Online_Skak
                         counter++;
                         continue;
                     }
+                    else if ((row == 0 && column == 1) || (row == 0 && column == 6))
+                    {
+                        knight = new Knight(row, column);
+                        counter++;
+                        continue;
+                    }
                     else if ((row == 0 && column == 2) || (row == 0 && column == 5))
                     {
                         bishop = new Bishop(row, column);
                         counter++;
                         continue;
                     }
-
+                    else if ((row == 0 && column == 4))
+                    {
+                        king = new King(row, column);
+                        counter++;
+                        continue;
+                    }
+                    else if ((row == 0 && column == 3))
+                    {
+                        queen = new Queen(row, column);
+                        counter++;
+                        continue;
+                    }
                     BoardButton boardButton = new BoardButton(row, column, counter);
                     counter++;
 

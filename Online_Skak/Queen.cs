@@ -11,8 +11,6 @@ namespace Online_Skak
 {
     public class Queen : ButtonClass
     {
-
-        MainWindow Form = Application.Current.Windows[0] as MainWindow;
         public Queen(int row, int column)
         {
             Button queenButton = new Button();

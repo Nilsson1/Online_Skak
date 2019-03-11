@@ -9,9 +9,8 @@ using System.Windows.Input;
 
 namespace Online_Skak
 {
-    class Knight : ButtonClass
+    public class Knight : ButtonClass
     {
-        MainWindow Form = Application.Current.Windows[0] as MainWindow;
         public Knight(int row, int column)
         {
             Button knightButton = new Button();

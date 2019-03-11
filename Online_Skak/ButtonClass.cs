@@ -32,13 +32,26 @@ namespace Online_Skak
         }
 
         //Swap the two buttons chosen by clicking.
-        protected void SwapTwoButtons (MouseButtonEventArgs e){
+        protected void SwapTwoButtons(MouseButtonEventArgs e) {
             buttonSwap = (Button)GetChildren(Form.GridName, row, column);
             element = (Button)(UIElement)e.Source;
 
             SetButtonPosition(buttonSwap, InitRow, InitCol);
             SetButtonPosition(element, row, column);
             SetButtonColor(InitRow, InitCol, row, column);
+        }
+
+        protected bool PawnMove(int row, int col, int desiredRow, int desiredCol)
+        {
+            if (desiredCol != col)
+            {
+                return false;
+            }
+            else if (Math.Abs(desiredRow - row) > 2)
+            {
+                return false;
+            }
+            return true;
         }
 
         protected bool TowerMove(int row, int col, int desiredRow, int desiredCol)
@@ -51,30 +64,65 @@ namespace Online_Skak
             return true;
         }
 
-        protected bool PawnMove(int row, int col, int desiredRow, int desiredCol)
+        protected bool KnightMove(int row, int col, int desiredRow, int desiredCol)
         {
-            if (desiredCol != col)
+            int tempRow = (Math.Abs(desiredRow - row));
+            int tempCol = (Math.Abs(desiredCol - col));
+            if (tempRow == 2 && tempCol == 1)
             {
-                return false;
+                return true;
             }
-            else if (desiredRow - row > 2 || row - desiredRow > 2)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        protected bool BishopMove(int row, int col, int desiredRow, int desiredCol)
-        {
-        if (desiredCol == col || desiredRow == row) {
-                return false;
-            }
-        else if (Math.Abs(desiredRow - row) == Math.Abs(desiredCol - col))
+            else if (tempCol == 2 && tempRow == 1)
             {
                 return true;
             }
             return false;
         }
+
+        protected bool BishopMove(int row, int col, int desiredRow, int desiredCol)
+        {
+            if (desiredCol == col || desiredRow == row) {
+                return false;
+            }
+            else if (Math.Abs(desiredRow - row) == Math.Abs(desiredCol - col))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        protected bool KingMove(int row, int col, int desiredRow, int desiredCol)
+        {
+            int tempRow = (Math.Abs(desiredRow - row));
+            int tempCol = (Math.Abs(desiredCol - col));
+            if (tempRow == tempCol && tempRow < 2)
+            {
+                return true;
+            }
+            else if ((desiredCol == col || desiredRow == row) && (tempRow < 2 && tempCol < 2))
+            {
+                return true;
+            }
+
+             return false;
+        }
+
+        protected bool QueenMove(int row, int col, int desiredRow, int desiredCol)
+        {
+            int tempRow = (Math.Abs(desiredRow - row));
+            int tempCol = (Math.Abs(desiredCol - col));
+            if (tempRow == tempCol)
+            {
+                return true;
+            }
+            else if ((desiredCol == col || desiredRow == row) && (tempRow < 2 || tempCol < 2))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         //Checks if the proposed move of a button is valid according to the chess rules.
         protected bool ValidMove(int row, int col, int desiredRow, int desiredCol)
         {
@@ -97,6 +145,14 @@ namespace Online_Skak
                 case "Bishop":
                     return BishopMove(row, col, desiredRow, desiredCol);
 
+                case "Knight":
+                    return KnightMove(row, col, desiredRow, desiredCol);
+
+                case "King":
+                    return KingMove(row, col, desiredRow, desiredCol);
+
+                case "Queen":
+                    return QueenMove(row, col, desiredRow, desiredCol);
                 default:
                     return false;
             }

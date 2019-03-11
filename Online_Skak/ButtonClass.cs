@@ -14,13 +14,16 @@ namespace Online_Skak
 {
     public abstract class ButtonClass
     {
+        protected int row;
+        protected int column;
         protected int InitRow;
         protected int InitCol;
         protected Button buttonSwap;
         protected Button element;
- 
+
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
+        //This happens when leftmousebutton is held down.
         protected void Btn_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (CheckIfBoard(sender)) return;
@@ -28,7 +31,17 @@ namespace Online_Skak
             InitCol = GetColumn(e);
         }
 
+        //Swap the two buttons chosen by clicking.
+        protected void SwapTwoButtons (MouseButtonEventArgs e){
+            buttonSwap = (Button)GetChildren(Form.GridName, row, column);
+            element = (Button)(UIElement)e.Source;
 
+            SetButtonPosition(buttonSwap, InitRow, InitCol);
+            SetButtonPosition(element, row, column);
+            SetButtonColor(InitRow, InitCol, row, column);
+        }
+
+        //Checks if the proposed move of a button is valid according to the chess rules.
         protected bool ValidMove(int row, int col, int desiredRow, int desiredCol)
         {
 

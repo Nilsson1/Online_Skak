@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Online_Skak
 {
-    public class Pawn : ButtonClass
+    public class Tower : ButtonClass
     {
 
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
-        public Pawn(int row, int column)
+        public Tower(int row, int column)
         {
             Button pawnButton = new Button();
 
@@ -26,14 +25,12 @@ namespace Online_Skak
 
             SetDefaultButtonColor(pawnButton, row, column);
 
-            SetButtonName(pawnButton, "Pawn");
-            pawnButton.Content = "Pawn";
+            SetButtonName(pawnButton, "Tower");
+            pawnButton.Content = "Tower";
 
             Form.GridName.Children.Add(pawnButton);
         }
 
-
-        //This happens when leftmousebutton is released.
         private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (CheckIfBoard(sender)) return;
@@ -41,8 +38,8 @@ namespace Online_Skak
             int row = GetRow(e);
             int column = GetColumn(e);
 
-           if (!(ValidMove(row, column, InitRow, InitCol))) return;
-        
+            if (!(ValidMove(row, column, InitRow, InitCol))) return;
+
             buttonSwap = (Button)GetChildren(Form.GridName, row, column);
             element = (Button)(UIElement)e.Source;
 
@@ -54,11 +51,7 @@ namespace Online_Skak
 
         private bool ValidMove(int row, int col, int desiredRow, int desiredCol)
         {
-            if (desiredCol != col)
-            {
-                return false;
-            }
-            else if (desiredRow - row > 2 || row - desiredRow > 2)
+            if (!(desiredCol == col || desiredRow == row))
             {
                 return false;
             }
@@ -66,4 +59,5 @@ namespace Online_Skak
             return true;
         }
     }
+
 }

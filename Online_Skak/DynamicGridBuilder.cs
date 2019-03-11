@@ -22,6 +22,7 @@ namespace Online_Skak
         private bool secondButtonIsBlack;
         private Button buttonSwap;
         private Button element;
+        private Pawn pawn;
 
         //Creates 64 buttons for the chess board.
         public Button[,] CreateBoardButtons()
@@ -31,7 +32,20 @@ namespace Online_Skak
             {
                 for (int j = 0; j < 8; j++)
                 {
+                    
+                    if (i == 0 && j == 0)
+                    {
+                        
+                        pawn = new Pawn(i, j);
+
+                       
+                        counter++;
+                    
+                        continue;
+                    }
+
                     Button button = new Button();
+
 
                     SetDefaultButtonColor(button, i, j);
                     SetButtonPosition(button, i, j);
@@ -70,7 +84,7 @@ namespace Online_Skak
 
             buttonSwap = (Button)GetChildren(Form.GridName, row, column);
             element = (Button)(UIElement)e.Source;
-            
+
             SetButtonPosition(buttonSwap, InitRow, InitCol);
             SetButtonPosition(element, row, column);
 
@@ -186,39 +200,39 @@ namespace Online_Skak
         //Sets the fore- and background color of both buttons that are swapping positions.
         private void SetButtonColor(int row1, int col1, int row2, int col2) 
         {
-            firstButtonIsBlack = (row1 % 2 == 0 && col1 % 2 != 0) || (row1 % 2 != 0 && col1 % 2 == 0);
-            secondButtonIsBlack = (row2 % 2 == 0 && col2 % 2 != 0) || (row2 % 2 != 0 && col2 % 2 == 0);
+            bool firstButtonIsWhite = (row1 % 2 == 0 && col1 % 2 != 0) || (row1 % 2 != 0 && col1 % 2 == 0);
+            bool secondButtonIsWhite = (row2 % 2 == 0 && col2 % 2 != 0) || (row2 % 2 != 0 && col2 % 2 == 0);
 
-            if (firstButtonIsBlack)
-            {
-                SetColor(buttonSwap, Colors.Black, Colors.White);
-            }
-            else
+            if (firstButtonIsWhite)
             {
                 SetColor(buttonSwap, Colors.White, Colors.Black);
             }
-
-            if (secondButtonIsBlack)
+            else
             {
-                SetColor(element, Colors.Black, Colors.White);
+                SetColor(buttonSwap, Colors.Black, Colors.White);
+            }
+
+            if (secondButtonIsWhite)
+            {
+                SetColor(element, Colors.White, Colors.Black);
             }
             else
             {
-                SetColor(element, Colors.White, Colors.Black);
+                SetColor(element, Colors.Black, Colors.White);
             }
         }
 
         //Sets the fore- and background color of a button that is created at the start of the game.
         private void SetDefaultButtonColor(Button button, int i, int j)
         {
-            bool defaultButtonIsBlack = (i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0);
-            if (defaultButtonIsBlack)
+            bool defaultButtonIsWhite = (i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0);
+            if (defaultButtonIsWhite)
             {
-                SetColor(button, Colors.Black, Colors.White);
+                SetColor(button, Colors.White, Colors.Black);
             }
             else
             {
-                SetColor(button, Colors.White, Colors.Black);
+                SetColor(button, Colors.Black, Colors.White);
             }
         }
     }

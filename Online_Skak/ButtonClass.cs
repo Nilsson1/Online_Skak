@@ -21,7 +21,7 @@ namespace Online_Skak
         protected Button buttonSwap;
         protected Button element;
 
-        MainWindow Form = Application.Current.Windows[0] as MainWindow;
+        protected MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
         //This happens when leftmousebutton is held down.
         protected void Btn_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -41,6 +41,40 @@ namespace Online_Skak
             SetButtonColor(InitRow, InitCol, row, column);
         }
 
+        protected bool TowerMove(int row, int col, int desiredRow, int desiredCol)
+        {
+            if (!(desiredCol == col || desiredRow == row))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected bool PawnMove(int row, int col, int desiredRow, int desiredCol)
+        {
+            if (desiredCol != col)
+            {
+                return false;
+            }
+            else if (desiredRow - row > 2 || row - desiredRow > 2)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        protected bool BishopMove(int row, int col, int desiredRow, int desiredCol)
+        {
+        if (desiredCol == col || desiredRow == row) {
+                return false;
+            }
+        else if (Math.Abs(desiredRow - row) == Math.Abs(desiredCol - col))
+            {
+                return true;
+            }
+            return false;
+        }
         //Checks if the proposed move of a button is valid according to the chess rules.
         protected bool ValidMove(int row, int col, int desiredRow, int desiredCol)
         {
@@ -51,31 +85,20 @@ namespace Online_Skak
             string typeName = methodBase.DeclaringType.Name;
 
             Console.WriteLine(typeName);
-            if (typeName == "Tower")
-            {
-                if (!(desiredCol == col || desiredRow == row))
-                {
-                    return false;
-                }
 
-                return true;
-            }
-            else if(typeName == "Pawn")
+        switch(typeName)
             {
-                if (desiredCol != col)
-                {
-                    return false;
-                }
-                else if (desiredRow - row > 2 || row - desiredRow > 2)
-                {
-                    return false;
-                }
+                case "Tower":
+                    return TowerMove(row, col, desiredRow, desiredCol);
 
-                return true;
-            }
-            else
-            {
-                return true;
+                case "Pawn":
+                    return PawnMove(row, col, desiredRow, desiredCol);
+
+                case "Bishop":
+                    return BishopMove(row, col, desiredRow, desiredCol);
+
+                default:
+                    return false;
             }
         }
 

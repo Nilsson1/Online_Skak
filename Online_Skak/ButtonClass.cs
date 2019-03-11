@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +26,44 @@ namespace Online_Skak
             if (CheckIfBoard(sender)) return;
             InitRow = GetRow(e);
             InitCol = GetColumn(e);
+        }
+
+
+        protected bool ValidMove(int row, int col, int desiredRow, int desiredCol)
+        {
+
+            StackTrace stackTrace = new StackTrace();
+            MethodBase methodBase = stackTrace.GetFrame(1).GetMethod();
+
+            string typeName = methodBase.DeclaringType.Name;
+
+            Console.WriteLine(typeName);
+            if (typeName == "Tower")
+            {
+                if (!(desiredCol == col || desiredRow == row))
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            else if(typeName == "Pawn")
+            {
+                if (desiredCol != col)
+                {
+                    return false;
+                }
+                else if (desiredRow - row > 2 || row - desiredRow > 2)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         //Sets the button in the grid according to the desired position.

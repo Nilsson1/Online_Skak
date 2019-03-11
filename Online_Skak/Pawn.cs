@@ -52,18 +52,5 @@ namespace Online_Skak
             SetButtonColor(InitRow, InitCol, row, column);
         }
 
-        private bool ValidMove(int row, int col, int desiredRow, int desiredCol)
-        {
-            if (desiredCol != col)
-            {
-                return false;
-            }
-            else if (desiredRow - row > 2 || row - desiredRow > 2)
-            {
-                return false;
-            }
-
-            return true;
-        }
-    }
+      }
 }

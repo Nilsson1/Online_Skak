@@ -45,19 +45,7 @@ namespace Online_Skak
 
             SetButtonPosition(buttonSwap, InitRow, InitCol);
             SetButtonPosition(element, row, column);
-
-            SetButtonColor(InitRow, InitCol, row, column);
-        }
-
-        private bool ValidMove(int row, int col, int desiredRow, int desiredCol)
-        {
-            if (!(desiredCol == col || desiredRow == row))
-            {
-                return false;
-            }
-
-            return true;
+            SetButtonColor(InitRow, InitCol, row, column);        
         }
     }
-
 }

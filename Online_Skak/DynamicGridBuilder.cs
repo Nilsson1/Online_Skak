@@ -32,16 +32,16 @@ namespace Online_Skak
                         counter++;
                         continue;
                     }
-                    else if ((row == 0 && column == 0)|| (row == 0 && column == 7))
+                    else if ((row == 0 && column == 0) || (row == 0 && column == 7))
                     {
-                        tower = new Tower(row, column); 
+                        tower = new Tower(row, column);
                         counter++;
                         continue;
                     }
 
                     BoardButton boardButton = new BoardButton(row, column, counter);
                     counter++;
-                    
+
                 }
             }
             return buttonArray;

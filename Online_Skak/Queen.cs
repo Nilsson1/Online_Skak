@@ -9,26 +9,26 @@ using System.Windows.Input;
 
 namespace Online_Skak
 {
-    public class Tower : ButtonClass
+    public class Queen : ButtonClass
     {
 
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
-        public Tower(int row, int column)
+        public Queen(int row, int column)
         {
-            Button towerButton = new Button();
+            Button queenButton = new Button();
 
-            SetButtonPosition(towerButton, row, column);
+            SetButtonPosition(queenButton, row, column);
 
 
-            towerButton.PreviewMouseLeftButtonDown += Btn_PreviewMouseLeftButtonDown;
-            towerButton.PreviewMouseLeftButtonUp += Btn_PreviewMouseLeftButtonUp;
+            queenButton.PreviewMouseLeftButtonDown += Btn_PreviewMouseLeftButtonDown;
+            queenButton.PreviewMouseLeftButtonUp += Btn_PreviewMouseLeftButtonUp;
 
-            SetDefaultButtonColor(towerButton, row, column);
+            SetDefaultButtonColor(queenButton, row, column);
 
-            SetButtonName(towerButton, "Tower");
-            towerButton.Content = "Tower";
+            SetButtonName(queenButton, "Queen");
+            queenButton.Content = "Queen";
 
-            Form.GridName.Children.Add(towerButton);
+            Form.GridName.Children.Add(queenButton);
         }
 
         private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -40,7 +40,7 @@ namespace Online_Skak
 
             if (!(ValidMove(row, column, InitRow, InitCol))) return;
 
-            SwapTwoButtons(e); 
+            SwapTwoButtons(e);
         }
     }
 }

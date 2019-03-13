@@ -11,10 +11,8 @@ using System.Windows.Shapes;
 
 namespace Online_Skak
 {
-    public class DynamicGridBuilder : ButtonClass
+    public class DynamicGridBuilder
     {
-        MainWindow Form = Application.Current.Windows[0] as MainWindow;
-
         private int counter = 0;
         private Pawn pawn;
         private Tower tower;
@@ -68,7 +66,6 @@ namespace Online_Skak
                     }
                     BoardButton boardButton = new BoardButton(row, column, counter);
                     counter++;
-
                 }
             }
             return buttonArray;

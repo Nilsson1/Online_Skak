@@ -70,7 +70,6 @@
     </Compile>
     <Compile Include="BoardButton.cs" />
     <Compile Include="ButtonClass.cs" />
-    <Compile Include="ChessPiece.cs" />
     <Compile Include="DynamicGridBuilder.cs" />
     <Compile Include="Pawn.cs" />
     <Compile Include="MainWindow.xaml.cs">

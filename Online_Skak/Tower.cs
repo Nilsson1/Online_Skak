@@ -1,46 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Online_Skak
 {
     public class Tower : ButtonClass
     {
+        Button towerButton;
 
-        MainWindow Form = Application.Current.Windows[0] as MainWindow;
-        public Tower(int row, int column)
+        public Tower(int row, int column, MouseButtonEventHandler up, MouseButtonEventHandler down)
         {
-            Button towerButton = new Button();
+            towerButton = new Button();
 
             SetButtonPosition(towerButton, row, column);
 
 
-            towerButton.PreviewMouseLeftButtonDown += Btn_PreviewMouseLeftButtonDown;
-            towerButton.PreviewMouseLeftButtonUp += Btn_PreviewMouseLeftButtonUp;
+            towerButton.PreviewMouseLeftButtonDown += down;
+            towerButton.PreviewMouseLeftButtonUp += up;
 
             SetDefaultButtonColor(towerButton, row, column);
 
-            SetButtonName(towerButton, "Tower");
+            towerButton.Name = "Tower0";
             towerButton.Content = "Tower";
 
             Form.GridName.Children.Add(towerButton);
         }
 
-        private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        public string GetButton()
         {
-            if (CheckIfBoard(sender)) return;
+            return towerButton.Name;
+        }
 
-            row = GetRow(e);
-            column = GetColumn(e);
+        public bool Move(int row, int col, int desiredRow, int desiredCol)
+        {
+            if (!(desiredCol == col || desiredRow == row))
+            {
+                return false;
+            }
 
-            if (!(ValidMove(row, column, InitRow, InitCol))) return;
-
-            SwapTwoButtons(e); 
+            return true;
         }
     }
 }

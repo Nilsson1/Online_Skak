@@ -16,7 +16,19 @@ namespace Online_Skak
         {
             InitializeComponent();
             dynamicGridBuilder = new DynamicGridBuilder();
-            dynamicGridBuilder.CreateBoardButtons();
+            var name = dynamicGridBuilder.CreateBoardButtons();
+
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < 8; j++)
+                {
+                    Console.WriteLine(name[i, j]);
+                }
+            }
+            //var name2 = dynamicGridBuilder.MoveChessPiece(1, 0, 2, 0);
+            //Console.WriteLine(name2);
+
+           // dynamicGridBuilder.
         }
     }
 }

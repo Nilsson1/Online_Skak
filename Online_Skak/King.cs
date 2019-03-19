@@ -1,44 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Online_Skak
 {
     public class King : ButtonClass
     {
-        public King(int row, int column)
+        Button kingButton;
+        public King(int row, int column, int team , MouseButtonEventHandler up, MouseButtonEventHandler down)
         {
-            Button kingButton = new Button();
+            kingButton = new Button();
 
             SetButtonPosition(kingButton, row, column);
 
 
-            kingButton.PreviewMouseLeftButtonDown += Btn_PreviewMouseLeftButtonDown;
-            kingButton.PreviewMouseLeftButtonUp += Btn_PreviewMouseLeftButtonUp;
+            kingButton.PreviewMouseLeftButtonDown += down;
+            kingButton.PreviewMouseLeftButtonUp += up;
 
             SetDefaultButtonColor(kingButton, row, column);
 
-            SetButtonName(kingButton, "King");
+            SetButtonName(kingButton, "King" + team);
             kingButton.Content = "King";
 
             Form.GridName.Children.Add(kingButton);
         }
 
-        private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        public string GetButton()
         {
-            if (CheckIfBoard(sender)) return;
-
-            row = GetRow(e);
-            column = GetColumn(e);
-
-            if (!(ValidMove(row, column, InitRow, InitCol))) return;
-
-            SwapTwoButtons(e);
+            return kingButton.Name;
         }
     }
 }

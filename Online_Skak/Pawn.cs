@@ -1,49 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Online_Skak
 {
     public class Pawn : ButtonClass
     {
 
-        MainWindow Form = Application.Current.Windows[0] as MainWindow;
-        public Pawn(int row, int column)
+        Button pawnButton;
+        public Pawn(int row, int column, int team, MouseButtonEventHandler up, MouseButtonEventHandler down)
         {
-            Button pawnButton = new Button();
+            pawnButton = new Button();
 
             SetButtonPosition(pawnButton, row, column);
 
 
-            pawnButton.PreviewMouseLeftButtonDown += Btn_PreviewMouseLeftButtonDown;
-            pawnButton.PreviewMouseLeftButtonUp += Btn_PreviewMouseLeftButtonUp;
+            pawnButton.PreviewMouseLeftButtonDown += down;
+            pawnButton.PreviewMouseLeftButtonUp += up;
 
             SetDefaultButtonColor(pawnButton, row, column);
 
-            SetButtonName(pawnButton, "Pawn");
+            pawnButton.Name = "Pawn" + team;
             pawnButton.Content = "Pawn";
 
             Form.GridName.Children.Add(pawnButton);
         }
 
-
-        //This happens when leftmousebutton is released.
-        private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        public string GetButton()
         {
-            if (CheckIfBoard(sender)) return;
+            return pawnButton.Name;
+        }
 
-            row = GetRow(e);
-            column = GetColumn(e);
-
-            if (!(ValidMove(row, column, InitRow, InitCol))) return;
-
-            SwapTwoButtons(e);
+        public bool Move(int row, int col, int desiredRow, int desiredCol, string name)
+        {
+            if (desiredCol != col)
+            {
+                return false;
+            }
+            if (name == "Pawn0" && ((desiredRow - row <= 2)&& desiredRow - row > 0))
+            {
+                Console.WriteLine(desiredRow + "" + row);
+                return true;
+            }
+            if(name == "Pawn1" && ((row - desiredRow <= 2) && row - desiredRow > 0 ))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

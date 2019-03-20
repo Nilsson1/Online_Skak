@@ -17,37 +17,6 @@ namespace Online_Skak
  
         protected MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
-        protected bool KnightMove(int row, int col, int desiredRow, int desiredCol)
-        {
-            int tempRow = (Math.Abs(desiredRow - row));
-            int tempCol = (Math.Abs(desiredCol - col));
-            if (tempRow == 2 && tempCol == 1)
-            {
-                return true;
-            }
-            else if (tempCol == 2 && tempRow == 1)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        protected bool KingMove(int row, int col, int desiredRow, int desiredCol)
-        {
-            int tempRow = (Math.Abs(desiredRow - row));
-            int tempCol = (Math.Abs(desiredCol - col));
-            if (tempRow == tempCol && tempRow < 2)
-            {
-                return true;
-            }
-            else if ((desiredCol == col || desiredRow == row) && (tempRow < 2 && tempCol < 2))
-            {
-                return true;
-            }
-
-             return false;
-        }
-
         //Sets the button in the grid according to the desired position.
         protected void SetButtonPosition(Button button, int row, int column)
         {

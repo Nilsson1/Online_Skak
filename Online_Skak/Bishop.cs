@@ -20,7 +20,7 @@ namespace Online_Skak
 
             SetDefaultButtonColor(bishopButton, row, column);
 
-            SetButtonName(bishopButton, "Bishop" + color + team);
+            SetButtonName(bishopButton, "Bishop" + color + "_"+team);
             bishopButton.Content = "Bishop";
 
             Form.GridName.Children.Add(bishopButton);

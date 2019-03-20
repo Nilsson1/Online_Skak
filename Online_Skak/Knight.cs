@@ -19,7 +19,7 @@ namespace Online_Skak
 
             SetDefaultButtonColor(knightButton, row, column);
 
-            SetButtonName(knightButton, "Knight" + team);
+            SetButtonName(knightButton, "Knight_" + team);
             knightButton.Content = "Knight";
 
             Form.GridName.Children.Add(knightButton);
@@ -28,6 +28,22 @@ namespace Online_Skak
         public string GetButton()
         {
             return knightButton.Name;
+        }
+
+        public bool Move(int row, int col, int desiredRow, int desiredCol)
+        {
+            int tempRow = (Math.Abs(desiredRow - row));
+            int tempCol = (Math.Abs(desiredCol - col));
+            if (tempRow == 2 && tempCol == 1)
+            {
+                return true;
+            }
+            else if (tempCol == 2 && tempRow == 1)
+            {
+                return true;
+            }
+            return false;
+
         }
     }
 }

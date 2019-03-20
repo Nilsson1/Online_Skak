@@ -7,7 +7,7 @@ namespace Online_Skak
     {
         Button towerButton;
 
-        public Tower(int row, int column, MouseButtonEventHandler up, MouseButtonEventHandler down)
+        public Tower(int row, int column, int team, MouseButtonEventHandler up, MouseButtonEventHandler down)
         {
             towerButton = new Button();
 
@@ -19,7 +19,7 @@ namespace Online_Skak
 
             SetDefaultButtonColor(towerButton, row, column);
 
-            towerButton.Name = "Tower0";
+            towerButton.Name = "Tower_"+team;
             towerButton.Content = "Tower";
 
             Form.GridName.Children.Add(towerButton);

@@ -20,7 +20,7 @@ namespace Online_Skak
 
             SetDefaultButtonColor(pawnButton, row, column);
 
-            pawnButton.Name = "Pawn" + team;
+            pawnButton.Name = "Pawn_" + team;
             pawnButton.Content = "Pawn";
 
             Form.GridName.Children.Add(pawnButton);
@@ -37,12 +37,12 @@ namespace Online_Skak
             {
                 return false;
             }
-            if (name == "Pawn0" && ((desiredRow - row <= 2)&& desiredRow - row > 0))
+            if (name == "Pawn_0" && ((desiredRow - row <= 2)&& desiredRow - row > 0))
             {
                 Console.WriteLine(desiredRow + "" + row);
                 return true;
             }
-            if(name == "Pawn1" && ((row - desiredRow <= 2) && row - desiredRow > 0 ))
+            if(name == "Pawn_1" && ((row - desiredRow <= 2) && row - desiredRow > 0 ))
             {
                 return true;
             }

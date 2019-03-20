@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -50,7 +52,14 @@ namespace Online_Skak
                     }
                     else if ((row == 0 && column == 0) || (row == 0 && column == 7))
                     {
-                        tower = new Tower(row, column, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                        tower = new Tower(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                        objectArray[row, column] = tower.GetButton();
+                        counter++;
+                        continue;
+                    }
+                    else if ((row == 7 && column == 0)|| (row == 7 && column == 7))
+                    {
+                        tower = new Tower(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = tower.GetButton();
                         counter++;
                         continue;
@@ -62,6 +71,13 @@ namespace Online_Skak
                         counter++;
                         continue;
                     }
+                    else if ((row == 7 && column == 1) || (row == 7 && column == 6))
+                    {
+                        knight = new Knight(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                        objectArray[row, column] = knight.GetButton();
+                        counter++;
+                        continue;
+                    }
                     else if (row == 0 && column == 2)
                     {
                         bishop = new Bishop(row, column,"White", 0,  Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
@@ -69,9 +85,24 @@ namespace Online_Skak
                         counter++;
                         continue;
                     }
+
                     else if(row == 0 && column == 5)
                     {
                         bishop = new Bishop(row, column, "Black", 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                        objectArray[row, column] = bishop.GetButton();
+                        counter++;
+                        continue;
+                    }
+                    else if (row == 7 && column == 5)
+                    {
+                        bishop = new Bishop(row, column, "White", 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                        objectArray[row, column] = bishop.GetButton();
+                        counter++;
+                        continue;
+                    }
+                    else if (row == 7 && column == 2)
+                    {
+                        bishop = new Bishop(row, column, "Black", 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = bishop.GetButton();
                         counter++;
                         continue;
@@ -83,9 +114,23 @@ namespace Online_Skak
                         counter++;
                         continue;
                     }
+                    else if ((row == 7 && column == 4))
+                    {
+                        king = new King(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                        objectArray[row, column] = king.GetButton();
+                        counter++;
+                        continue;
+                    }
                     else if ((row == 0 && column == 3))
                     {
                         queen = new Queen(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                        objectArray[row, column] = queen.GetButton();
+                        counter++;
+                        continue;
+                    }
+                    else if ((row == 7 && column == 3))
+                    {
+                        queen = new Queen(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = queen.GetButton();
                         counter++;
                         continue;
@@ -257,45 +302,57 @@ namespace Online_Skak
            
             switch (s)
             {
-                case "Tower0":
+                case "Tower_0":
+                case "Tower_1":
                     b = tower.Move(row, col, desiredRow, desiredCol);
-                    c = TowerMove(row, col, desiredRow, desiredCol);
+                    c = TowerMove(row, col, desiredRow, desiredCol, s);
                     if (b && c) return true;
                     return false;
 
-                case "Pawn0":
-                case "Pawn1":
+                case "Pawn_0":
+                case "Pawn_1":
                     b = pawn.Move(row, col, desiredRow, desiredCol, s);
-                    c = PawnMove(row, col, desiredRow, desiredCol);
+                    c = PawnMove(row, col, desiredRow, desiredCol, s);
                     if (b && c) return true;
                     return false;
 
-                case "BishopWhite0":
+                case "BishopWhite_0":
+                case "BishopWhite_1":
                     b = bishop.Move(row, col, desiredRow, desiredCol);
-                    c = BishopMove(row, col, desiredRow, desiredCol, "White");
+                    c = BishopMove(row, col, desiredRow, desiredCol, "White", s);
                     if (b && c) return true;
                     return false;
 
-                case "BishopBlack0":
+                case "BishopBlack_0":
+                case "BishopBlack_1":
                     b = bishop.Move(row, col, desiredRow, desiredCol);
-                    c = BishopMove(row, col, desiredRow, desiredCol, "Black");
+                    c = BishopMove(row, col, desiredRow, desiredCol, "Black", s);
                     if (b && c) return true;
                     return false;
 
-                case "Knight":
-                    //return KnightMove(row, col, desiredRow, desiredCol);
+                case "Knight_0":
+                case "Knight_1":
+                    b = knight.Move(row, col, desiredRow, desiredCol);
+                    c = KnightMove(row, col, desiredRow, desiredCol, s);
+                    if (b && c) return true;
+                    return false;
 
-                case "King":
-                    //return KingMove(row, col, desiredRow, desiredCol);
+                case "King_0":
+                case "King_1":
+                    b = king.Move(row, col, desiredRow, desiredCol);
+                    c = KingMove(row, col, desiredRow, desiredCol, s);
+                    if (b && c) return true;
+                    return false;
 
-                case "Queen0":
-                    if((InitRow % 2 == 0 && InitCol % 2 != 0) || (InitRow % 2 != 0 && InitCol % 2 == 0))
+                case "Queen_0":
+                case "Queen_1":
+                    if ((InitRow % 2 == 0 && InitCol % 2 != 0) || (InitRow % 2 != 0 && InitCol % 2 == 0))
                     {
-                        c = QueenMove(row, col, desiredRow, desiredCol, "Black");
+                        c = QueenMove(row, col, desiredRow, desiredCol, "Black", s);
                     }
                     else
                     {
-                        c = QueenMove(row, col, desiredRow, desiredCol, "White");
+                        c = QueenMove(row, col, desiredRow, desiredCol, "White", s);
                     }
                     b = queen.Move(row, col, desiredRow, desiredCol);
                     if (b && c) return true;
@@ -392,7 +449,7 @@ namespace Online_Skak
         }
     
         //Puts all the different chesspieces into the List if they are in the way of the move and calls the "CheckIfMoveIsLegal" before returning true/false depending on the "CheckIfMoveIsLegal" function.
-        private bool BishopMove(int InitRow, int InitCol, int row, int column, string color)
+        private bool BishopMove(int InitRow, int InitCol, int row, int column, string color, string caller)
         {
             List<String> list = new List<String>();
             string[] listNew;
@@ -461,11 +518,11 @@ namespace Online_Skak
                     }
                 }
             }
-            return CheckIfMoveIsLegal(list, b1, b2, lastClick, click);
+            return CheckIfMoveIsLegal(list, b1, b2, lastClick, click, caller);
         }
 
         //Puts all the different chesspieces into the List if they are in the way of the move and calls the "CheckIfMoveIsLegal" before returning true/false depending on the "CheckIfMoveIsLegal" function.
-        private bool TowerMove(int InitRow, int InitCol, int row, int column)
+        private bool TowerMove(int InitRow, int InitCol, int row, int column, string caller)
         {
             List<String> list = new List<String>();
             string[] listNew;
@@ -492,11 +549,11 @@ namespace Online_Skak
                     AddChessPieceToList(i, j, list, objectArray[i, j]);
                 }
             }
-            return CheckIfMoveIsLegal(list, b1, b2, lastClick, click);
+            return CheckIfMoveIsLegal(list, b1, b2, lastClick, click, caller);
         }
 
         //Puts all the different chesspieces into the List if they are in the way of the move and calls the "CheckIfMoveIsLegal" before returning true/false depending on the "CheckIfMoveIsLegal" function.
-        private bool PawnMove(int InitRow, int InitCol, int row, int column)
+        private bool PawnMove(int InitRow, int InitCol, int row, int column, string caller)
         {
             List<String> list = new List<String>();
             string[] listNew;
@@ -523,91 +580,205 @@ namespace Online_Skak
                     AddChessPieceToList(i, j, list, objectArray[i, j]);
                 }
             }
-            return CheckIfMoveIsLegal(list, b1, b2, lastClick, click);
+            return CheckIfMoveIsLegal(list, b1, b2, lastClick, click, caller);
+        }
+
+        //Checks the start and end position and puts the name of the chesspiece into a list if there are any on those positions (there will always be on start pos for obvious reasons). 
+        //Calls "CheckIfMoveIsLegal" before returning true/false depending on the "CheckIfMoveIsLegal" function.
+        private bool KnightMove(int InitRow, int InitCol, int row, int column, string caller)
+        {
+            List<String> list = new List<String>();
+
+            bool b1 = true;
+            bool b2 = true;
+
+            string click = objectArray[row, column];
+            char lastClick = click[click.Length - 1];
+
+            int tempRow = (Math.Abs(row - InitRow));
+            int tempCol = (Math.Abs(column - InitCol));
+
+            AddChessPieceToList(InitRow, InitCol, list, objectArray[InitRow, InitCol]);
+
+            if (tempRow == 2 && tempCol == 1)
+            {
+                AddChessPieceToList(row, column, list, objectArray[row, column]);
+            }
+            else if (tempCol == 2 && tempRow == 1)
+            {
+                AddChessPieceToList(row, column, list, objectArray[row, column]);
+            }
+            return CheckIfMoveIsLegal(list, b1, b2, lastClick, click, caller);
+        }
+
+        //Checks the start and end position and puts the name of the chesspiece into a list if there are any on those positions (there will always be on start pos for obvious reasons). 
+        //Calls "CheckIfMoveIsLegal" before returning true/false depending on the "CheckIfMoveIsLegal" function.
+        private bool KingMove(int InitRow, int InitCol, int row, int column, string caller)
+        {
+            List<String> list = new List<String>();
+
+            bool b1 = true;
+            bool b2 = true;
+           
+            string click = objectArray[row, column];
+            char lastClick = click[click.Length - 1];
+
+            int tempRow = (Math.Abs(row - InitRow));
+            int tempCol = (Math.Abs(column - InitCol));
+
+            AddChessPieceToList(InitRow, InitCol, list, objectArray[InitRow, InitCol]);
+
+            if (tempRow == tempCol && tempRow < 2)
+            {
+                AddChessPieceToList(row, column, list, objectArray[row, column]);
+            }
+            else if ((column == InitCol || row == InitRow) && (tempRow < 2 && tempCol < 2))
+            {
+                AddChessPieceToList(row, column, list, objectArray[row, column]);
+            }
+            return CheckIfMoveIsLegal(list, b1, b2, lastClick, click, caller);
         }
 
         //Puts all the different chesspieces into the List if they are in the way of the move and calls the "CheckIfMoveIsLegal" before returning true/false depending on the "CheckIfMoveIsLegal" function.
-        private bool QueenMove(int InitRow, int InitCol, int row, int column, string color)
+        private bool QueenMove(int InitRow, int InitCol, int row, int column, string color, string caller)
         {
             if (InitRow == row || InitCol == column)
             {
-                return TowerMove(InitRow, InitCol, row, column);
+                return TowerMove(InitRow, InitCol, row, column, caller);
             }
             else
             {
-                return BishopMove(InitRow, InitCol, row, column, color);
+                return BishopMove(InitRow, InitCol, row, column, color, caller);
             }
         }
 
         //Checks the list provided by the ".Move" functions above and see if they contain any other chesspiece than the one wanting to move. If it does, it checks if it contains a piece from the opponent team on the distination tile. 
         //Returns true if this is the case.
-        private bool CheckIfMoveIsLegal(List<string> list, bool b1, bool b2, char lastClick, string click)
+        private bool CheckIfMoveIsLegal(List<string> list, bool b1, bool b2, char lastClick, string click, string caller)
         {
-
             StackTrace stackTrace = new StackTrace();
 
             // Get calling method name
             string callingMethod = stackTrace.GetFrame(1).GetMethod().Name;
             string s;
+            string[] splitCaller;
+
+            splitCaller = caller.Split('_');
 
             click = objectArray[row, column];
             lastClick = click[click.Length - 1];
 
-            foreach(string s1 in list)
+            foreach (string s1 in list)
             {
                 Console.WriteLine(s1);
             }
             Console.WriteLine(b1 + "" + b2);
+            Console.WriteLine("Splitcaller: " + splitCaller[1]);
 
-            if (list.Count == 2)
+            if (splitCaller[1] == "0")
             {
-                if (b1 == true && b2 == true)
+                if (list.Count == 2)
                 {
-                    s = list[1];
-                    if ((s[s.Length - 1] == '1') && lastClick != 'n')
-                    {
-                        list.Remove(list[1]);
-                    }
-                }
-                else if (b1 == false && b2 == true)
-                {
-                    s = list[0];
-                    if ((s[s.Length - 1] == '1') && lastClick != 'n')
-                    {
-                        list.Remove(list[0]);
-                    }
-
-                }
-                else if (b1 == true && b2 == false)
-                {
-                    if(callingMethod == "TowerMove")
-                    {
-                        s = list[0];
-                    }
-                    else
+                    if (b1 == true && b2 == true)
                     {
                         s = list[1];
+                        if ((s[s.Length - 1] == '1') && lastClick != 'n')
+                        {
+                            list.Remove(list[1]);
+                        }
                     }
-                    
-                    if ((s[s.Length - 1] == '1') && lastClick != 'n')
+                    else if (b1 == false && b2 == true)
                     {
-                         list.Remove(list[1]);
+                        s = list[0];
+                        if ((s[s.Length - 1] == '1') && lastClick != 'n')
+                        {
+                            list.Remove(list[0]);
+                        }
+
+                    }
+                    else if (b1 == true && b2 == false)
+                    {
+                        if (callingMethod == "TowerMove")
+                        {
+                            s = list[0];
+                        }
+                        else
+                        {
+                            s = list[1];
+                        }
+
+                        if ((s[s.Length - 1] == '1') && lastClick != 'n')
+                        {
+                            list.Remove(list[1]);
+                        }
+                    }
+                    else if (b1 == false && b2 == false)
+                    {
+                        s = list[0];
+                        if ((s[s.Length - 1] == '1') && lastClick != 'n')
+                        {
+                            list.Remove(list[1]);
+                        }
                     }
                 }
-                else if(b1 == false && b2 == false)
+                if (list.Count <= 1)
                 {
-                    s = list[0];
-                    if ((s[s.Length - 1] == '1') && lastClick != 'n')
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                if (list.Count == 2)
+                {
+                    if (b1 == true && b2 == true)
                     {
-                        list.Remove(list[1]);
+                        s = list[1];
+                        if ((s[s.Length - 1] == '0') && lastClick != 'n')
+                        {
+                            list.Remove(list[1]);
+                        }
+                    }
+                    else if (b1 == false && b2 == true)
+                    {
+                        s = list[0];
+                        if ((s[s.Length - 1] == '0') && lastClick != 'n')
+                        {
+                            list.Remove(list[0]);
+                        }
+
+                    }
+                    else if (b1 == true && b2 == false)
+                    {
+                        if (callingMethod == "TowerMove")
+                        {
+                            s = list[0];
+                        }
+                        else
+                        {
+                            s = list[1];
+                        }
+
+                        if ((s[s.Length - 1] == '0') && lastClick != 'n')
+                        {
+                            list.Remove(list[1]);
+                        }
+                    }
+                    else if (b1 == false && b2 == false)
+                    {
+                        s = list[0];
+                        if ((s[s.Length - 1] == '0') && lastClick != 'n')
+                        {
+                            list.Remove(list[1]);
+                        }
                     }
                 }
+                if (list.Count <= 1)
+                {
+                    return true;
+                }
+                return false;
             }
-            if (list.Count <= 1)
-            {
-                return true;
-            }
-            return false;
         }
     }
 }

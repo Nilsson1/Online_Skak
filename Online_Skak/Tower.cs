@@ -20,7 +20,7 @@ namespace Online_Skak
             SetDefaultButtonColor(towerButton, row, column);
 
             towerButton.Name = "Tower_"+team;
-            towerButton.Content = "Tower";
+            towerButton.Content = "Tower "+team;
 
             Form.GridName.Children.Add(towerButton);
         }

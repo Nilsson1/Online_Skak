@@ -20,7 +20,7 @@ namespace Online_Skak
             SetDefaultButtonColor(knightButton, row, column);
 
             SetButtonName(knightButton, "Knight_" + team);
-            knightButton.Content = "Knight";
+            knightButton.Content = "Knight " + team;
 
             Form.GridName.Children.Add(knightButton);
         }

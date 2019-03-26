@@ -22,6 +22,8 @@ namespace Online_Skak
         private Bishop bishop;
         private King king;
         private Queen queen;
+        private int team;
+        private int roundGameCounter = 0;
 
         string[,] objectArray = new string[8, 8];
 
@@ -39,7 +41,6 @@ namespace Online_Skak
                         pawn = new Pawn(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         counter++;
                         objectArray[row, column] = pawn.GetButton();
-                        Console.WriteLine(pawn.GetButton());
                         continue;
                     }
                     if(row == 6)
@@ -47,7 +48,6 @@ namespace Online_Skak
                         pawn = new Pawn(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         counter++;
                         objectArray[row, column] = pawn.GetButton();
-                        Console.WriteLine(pawn.GetButton());
                         continue;
                     }
                     else if ((row == 0 && column == 0) || (row == 0 && column == 7))
@@ -85,7 +85,6 @@ namespace Online_Skak
                         counter++;
                         continue;
                     }
-
                     else if(row == 0 && column == 5)
                     {
                         bishop = new Bishop(row, column, "Black", 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
@@ -146,22 +145,26 @@ namespace Online_Skak
         //This is called whenever a button is pressed down.
         private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
             row = GetRow(e);
             column = GetColumn(e);
 
             if (CheckIfBoard(sender)) return;
-
             Button b = (Button)sender;
             string s = b.Name;
 
-           // Console.WriteLine(row + "" + column + "" + InitRow + "" + InitCol);
-            if(InitRow != row || InitCol != column)
+            FindChessPieceTeam(s);
+
+            if ((InitRow != row || InitCol != column))
             {
-                if (MoveChessPiece(InitRow, InitCol, row, column, s))
+                if(team == roundGameCounter % 2)
                 {
-                    SwapTwoButtons(e);
-                    SetButtonColor(InitRow, InitCol, row, column);
+                    if (MoveChessPiece(InitRow, InitCol, row, column, s))
+                    {
+                        SwapTwoButtons(e);
+                        SetButtonColor(InitRow, InitCol, row, column);
+                        roundGameCounter++;
+                    }
+                    Console.WriteLine("Team is: " + team);
                 }
             }
         }
@@ -172,6 +175,24 @@ namespace Online_Skak
             if (CheckIfBoard(sender)) return;
             InitRow = GetRow(e);
             InitCol = GetColumn(e);
+        }
+
+        private void FindChessPieceTeam(string s)
+        {
+            string[] sSplit = s.Split('_');
+
+            switch (sSplit[1])
+            {
+                case "0":
+                    team = 0;
+                    break;
+                case "1":
+                    team = 1;
+                    break;
+                default:
+                    Console.WriteLine("default");
+                    break;
+            }
         }
 
         //Swap the two buttons chosen by Btn_PreviewMouseLeftButtonUp and Btn_PreviewMouseLeftButtonDown.
@@ -189,6 +210,28 @@ namespace Online_Skak
 
             Grid.SetColumn(element, column);
             Grid.SetRow(element, row);
+            int kingCounter = 0;
+            string kingString = "";
+
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < 8; j++)
+                {
+                    string s = objectArray[i, j];
+                    if(s == "King_0" || s == "King_1")
+                    {
+                        kingString = s;
+                        kingCounter++;
+                    }
+                }
+            }
+            if(kingCounter < 2)
+            {
+                string[] winner = kingString.Split('_');
+                MessageBoxResult result = MessageBox.Show("The Winner is Team: " + winner[1]);
+                Console.WriteLine(kingString);
+                System.Windows.Application.Current.Shutdown();
+            }
         }
 
         //Get all children in the grid
@@ -299,7 +342,7 @@ namespace Online_Skak
         private bool MoveChessPiece(int row, int col, int desiredRow, int desiredCol, string s)
         {
             bool b, c;
-           
+            string[] st = s.Split('_');
             switch (s)
             {
                 case "Tower_0":
@@ -311,6 +354,7 @@ namespace Online_Skak
 
                 case "Pawn_0":
                 case "Pawn_1":
+                    Console.WriteLine(st[1] + team.ToString());
                     b = pawn.Move(row, col, desiredRow, desiredCol, s);
                     c = PawnMove(row, col, desiredRow, desiredCol, s);
                     if (b && c) return true;

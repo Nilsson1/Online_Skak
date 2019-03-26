@@ -6,22 +6,18 @@ namespace Online_Skak
 {
     public class Pawn : ButtonClass
     {
-
         Button pawnButton;
         public Pawn(int row, int column, int team, MouseButtonEventHandler up, MouseButtonEventHandler down)
         {
             pawnButton = new Button();
-
             SetButtonPosition(pawnButton, row, column);
-
 
             pawnButton.PreviewMouseLeftButtonDown += down;
             pawnButton.PreviewMouseLeftButtonUp += up;
 
             SetDefaultButtonColor(pawnButton, row, column);
-
             pawnButton.Name = "Pawn_" + team;
-            pawnButton.Content = "Pawn";
+            pawnButton.Content = "Pawn " +team;
 
             Form.GridName.Children.Add(pawnButton);
         }

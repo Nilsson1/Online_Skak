@@ -13,7 +13,7 @@ namespace Online_Skak
 
             SetButtonName(button, "board");
 
-            button.Content = counter;
+            //button.Content = counter;
 
             button.PreviewMouseLeftButtonDown += down;
          

@@ -25,10 +25,6 @@ namespace Online_Skak
                     Console.WriteLine(name[i, j]);
                 }
             }
-            //var name2 = dynamicGridBuilder.MoveChessPiece(1, 0, 2, 0);
-            //Console.WriteLine(name2);
-
-           // dynamicGridBuilder.
         }
     }
 }

@@ -27,9 +27,14 @@ namespace Online_Skak
 
         }
 
-        public string GetButton()
+        public string GetButtonName()
         {
             return bishopButton.Name;
+        }
+
+        public Button GetButton()
+        {
+            return bishopButton;
         }
 
         public bool Move(int row, int col, int desiredRow, int desiredCol)

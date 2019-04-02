@@ -15,16 +15,10 @@ namespace Online_Skak
         public MainWindow()
         {
             InitializeComponent();
+
+
             dynamicGridBuilder = new DynamicGridBuilder();
             var name = dynamicGridBuilder.CreateBoardButtons();
-
-            for(int i = 0; i < 8; i++)
-            {
-                for(int j = 0; j < 8; j++)
-                {
-                    Console.WriteLine(name[i, j]);
-                }
-            }
         }
     }
 }

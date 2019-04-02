@@ -25,9 +25,14 @@ namespace Online_Skak
             Form.GridName.Children.Add(knightButton);
         }
 
-        public string GetButton()
+        public string GetButtonName()
         {
             return knightButton.Name;
+        }
+
+        public Button GetButton()
+        {
+            return knightButton;
         }
 
         public bool Move(int row, int col, int desiredRow, int desiredCol)

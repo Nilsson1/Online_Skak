@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,12 +11,13 @@ using System.Windows.Media;
 
 namespace Online_Skak
 {
+    
     public class DynamicGridBuilder
     {
+        ServiceHandler serviceHandler;
         private int counter = 0;
         private int InitRow, InitCol, row, column;
         private Button buttonSwap;
-        private Button element;
         private Pawn pawn;
         private Tower tower;
         private Knight knight;
@@ -24,10 +26,36 @@ namespace Online_Skak
         private Queen queen;
         private int team;
         private int roundGameCounter = 0;
+        private Button b;
 
         string[,] objectArray = new string[8, 8];
-
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
+
+        public DynamicGridBuilder()
+        {
+            serviceHandler = new ServiceHandler();
+            serviceHandler.MessageRecieved += HandleMessage;
+        }
+
+        public void HandleMessage(string message)
+        {
+            Console.WriteLine(message);
+            string[] splitMsg = message.Split(',');
+
+            Button b = new Button();
+            string sender = splitMsg[0];
+            //Console.WriteLine("handlesender: " + sender);
+
+            InitRow = Int32.Parse(splitMsg[1]);
+            InitCol = Int32.Parse(splitMsg[2]);
+            row = Int32.Parse(splitMsg[3]);
+            column = Int32.Parse(splitMsg[4]);
+
+            b = SwapTwoButtons(sender);
+            SetButtonColor(b, InitRow, InitCol, row, column);
+            roundGameCounter++;
+        }
+
         //Creates 64 buttons for the chess board.
         public string[,] CreateBoardButtons()
         {
@@ -40,97 +68,97 @@ namespace Online_Skak
                     {
                         pawn = new Pawn(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         counter++;
-                        objectArray[row, column] = pawn.GetButton();
+                        objectArray[row, column] = pawn.GetButtonName();
                         continue;
                     }
                     if(row == 6)
                     {
                         pawn = new Pawn(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         counter++;
-                        objectArray[row, column] = pawn.GetButton();
+                        objectArray[row, column] = pawn.GetButtonName();
                         continue;
                     }
                     else if ((row == 0 && column == 0) || (row == 0 && column == 7))
                     {
                         tower = new Tower(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = tower.GetButton();
+                        objectArray[row, column] = tower.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if ((row == 7 && column == 0)|| (row == 7 && column == 7))
                     {
                         tower = new Tower(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = tower.GetButton();
+                        objectArray[row, column] = tower.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if ((row == 0 && column == 1) || (row == 0 && column == 6))
                     {
                         knight = new Knight(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = knight.GetButton();
+                        objectArray[row, column] = knight.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if ((row == 7 && column == 1) || (row == 7 && column == 6))
                     {
                         knight = new Knight(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = knight.GetButton();
+                        objectArray[row, column] = knight.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if (row == 0 && column == 2)
                     {
                         bishop = new Bishop(row, column,"White", 0,  Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = bishop.GetButton();
+                        objectArray[row, column] = bishop.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if(row == 0 && column == 5)
                     {
                         bishop = new Bishop(row, column, "Black", 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = bishop.GetButton();
+                        objectArray[row, column] = bishop.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if (row == 7 && column == 5)
                     {
                         bishop = new Bishop(row, column, "White", 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = bishop.GetButton();
+                        objectArray[row, column] = bishop.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if (row == 7 && column == 2)
                     {
                         bishop = new Bishop(row, column, "Black", 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = bishop.GetButton();
+                        objectArray[row, column] = bishop.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if ((row == 0 && column == 4))
                     {
                         king = new King(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = king.GetButton();
+                        objectArray[row, column] = king.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if ((row == 7 && column == 4))
                     {
                         king = new King(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = king.GetButton();
+                        objectArray[row, column] = king.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if ((row == 0 && column == 3))
                     {
                         queen = new Queen(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = queen.GetButton();
+                        objectArray[row, column] = queen.GetButtonName();
                         counter++;
                         continue;
                     }
                     else if ((row == 7 && column == 3))
                     {
                         queen = new Queen(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
-                        objectArray[row, column] = queen.GetButton();
+                        objectArray[row, column] = queen.GetButtonName();
                         counter++;
                         continue;
                     }
@@ -145,11 +173,14 @@ namespace Online_Skak
         //This is called whenever a button is pressed down.
         private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            Console.WriteLine("sender: " + sender);
+            Button btn = new Button();
+            
             row = GetRow(e);
             column = GetColumn(e);
 
             if (CheckIfBoard(sender)) return;
-            Button b = (Button)sender;
+            b = (Button)sender;
             string s = b.Name;
 
             FindChessPieceTeam(s);
@@ -160,9 +191,10 @@ namespace Online_Skak
                 {
                     if (MoveChessPiece(InitRow, InitCol, row, column, s))
                     {
-                        SwapTwoButtons(e);
-                        SetButtonColor(InitRow, InitCol, row, column);
+                        btn = SwapTwoButtons(s);
+                        SetButtonColor(btn, InitRow, InitCol, row, column);
                         roundGameCounter++;
+                        serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString());
                     }
                     Console.WriteLine("Team is: " + team);
                 }
@@ -177,6 +209,7 @@ namespace Online_Skak
             InitCol = GetColumn(e);
         }
 
+        //Finds the team (0 ir 1) the current chess piece belongs to.
         private void FindChessPieceTeam(string s)
         {
             string[] sSplit = s.Split('_');
@@ -195,21 +228,69 @@ namespace Online_Skak
             }
         }
 
+        //Returns which chesspiece (which type of button defined by each class) that is going to be moved.
+        private Button FindButtonClass(string classType, Button element)
+        {
+            switch (classType)
+            {
+                case "Pawn_0":
+                case "Pawn_1":
+                    Pawn pawn1 = new Pawn(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                    element = pawn1.GetButton();
+                    break;
+                case "Tower_0":
+                case "Tower_1":
+                    Tower tower1 = new Tower(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                    element = tower1.GetButton();
+                    break;
+                case "Knight_0":
+                case "Knight_1":
+                    Knight knight1 = new Knight(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                    element = knight1.GetButton();
+                    break;
+                case "BishopBlack_0":
+                case "BishopBlack_1":
+                    Bishop bishopBlack = new Bishop(row, column, "Black", team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                    element = bishopBlack.GetButton();
+                    break;
+                case "BishopWhite_1":
+                case "BishopWhite_0":
+                    Bishop bishopWhite = new Bishop(row, column, "White", team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                    element = bishopWhite.GetButton();
+                    break;
+                case "King_0":
+                case "King_1":
+                    King king1 = new King(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                    element = king1.GetButton();
+                    break;
+                case "Queen_0":
+                case "Queen_1":
+                    Queen queen1 = new Queen(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                    element = queen1.GetButton();
+                    break;
+                default:
+                    Console.WriteLine();
+                    break;
+            }
+            return element;
+        }
+
         //Swap the two buttons chosen by Btn_PreviewMouseLeftButtonUp and Btn_PreviewMouseLeftButtonDown.
-        private void SwapTwoButtons(MouseButtonEventArgs e)
+        private Button SwapTwoButtons(string classType)
         {
             buttonSwap = (Button)GetChildren(Form.GridName, row, column);
-            element = (Button)(UIElement)e.Source;
+            FindChessPieceTeam(classType);
 
-            SetButtonPosition(element, row, column);
+            Button buttonType = new Button();
+            buttonType = FindButtonClass(classType, buttonType);
+            SetButtonPosition(buttonType, row, column);
+
             Form.GridName.Children.Remove(buttonSwap);
             BoardButton button = new BoardButton(InitRow, InitCol, 0, Btn_PreviewMouseLeftButtonDown);
 
             objectArray[InitRow, InitCol] = button.ToString();
-            objectArray[row, column] = element.Name;
+            objectArray[row, column] = buttonType.Name;
 
-            Grid.SetColumn(element, column);
-            Grid.SetRow(element, row);
             int kingCounter = 0;
             string kingString = "";
 
@@ -232,6 +313,7 @@ namespace Online_Skak
                 Console.WriteLine(kingString);
                 System.Windows.Application.Current.Shutdown();
             }
+            return buttonType;
         }
 
         //Get all children in the grid
@@ -302,7 +384,7 @@ namespace Online_Skak
         }
 
         //Sets the fore- and background color of both buttons that are swapping positions.
-        private void SetButtonColor(int row1, int col1, int row2, int col2)
+        private void SetButtonColor(Button b, int row1, int col1, int row2, int col2)
         {
             bool firstButtonIsWhite = (row1 % 2 == 0 && col1 % 2 != 0) || (row1 % 2 != 0 && col1 % 2 == 0);
             bool secondButtonIsWhite = (row2 % 2 == 0 && col2 % 2 != 0) || (row2 % 2 != 0 && col2 % 2 == 0);
@@ -318,11 +400,11 @@ namespace Online_Skak
 
             if (secondButtonIsWhite)
             {
-                SetColor(element, Colors.White, Colors.Black);
+                SetColor(b, Colors.White, Colors.Black);
             }
             else
             {
-                SetColor(element, Colors.Black, Colors.White);
+                SetColor(b, Colors.Black, Colors.White);
             }
         }
 
@@ -354,7 +436,6 @@ namespace Online_Skak
 
                 case "Pawn_0":
                 case "Pawn_1":
-                    Console.WriteLine(st[1] + team.ToString());
                     b = pawn.Move(row, col, desiredRow, desiredCol, s);
                     c = PawnMove(row, col, desiredRow, desiredCol, s);
                     if (b && c) return true;
@@ -411,9 +492,7 @@ namespace Online_Skak
         private void AddChessPieceToList(int i, int j, List<String> list, string s)
         {
             s = objectArray[i, j];
-
             char lastSecond = s[s.Length - 1];
-
             if (lastSecond != 'n')
             {
                 list.Add(s);

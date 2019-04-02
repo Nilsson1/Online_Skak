@@ -25,10 +25,16 @@ namespace Online_Skak
             Form.GridName.Children.Add(kingButton);
         }
 
-        public string GetButton()
+        public string GetButtonName()
         {
             return kingButton.Name;
         }
+
+        public Button GetButton()
+        {
+            return kingButton;
+        }
+
 
         public bool Move(int row, int col, int desiredRow, int desiredCol)
         {

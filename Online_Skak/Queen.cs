@@ -41,10 +41,16 @@ namespace Online_Skak
             return false;
         }
 
-        public string GetButton()
+        public string GetButtonName()
         {
             return queenButton.Name;
         }
+
+        public Button GetButton()
+        {
+            return queenButton;
+        }
+
 
 
     }

@@ -38,14 +38,26 @@ namespace Online_Skak
             {
                 return false;
             }
-            if (name == "Pawn_0" && ((desiredRow - row <= 2)&& desiredRow - row > 0))
+            
+            if(name == "Pawn_0" && ((desiredRow - row <= 2) && desiredRow - row > 0) && row == 1)
             {
-                Console.WriteLine(desiredRow + "" + row);
                 return true;
+            } else
+            {
+                if (name == "Pawn_0" && ((desiredRow - row <= 1) && desiredRow - row > 0))
+                {
+                    return true;
+                }
             }
-            if(name == "Pawn_1" && ((row - desiredRow <= 2) && row - desiredRow > 0 ))
+            if (name == "Pawn_1" && ((row - desiredRow <= 2) && row - desiredRow > 0) && row == 6)
             {
                 return true;
+            } else
+            {
+                if (name == "Pawn_1" && ((row - desiredRow <= 1) && row - desiredRow > 0))
+                {
+                    return true;
+                }
             }
             return false;
         }

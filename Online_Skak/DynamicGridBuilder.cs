@@ -27,10 +27,11 @@ namespace Online_Skak
         private int team;
         private int roundGameCounter = 0;
         private Button b;
-
+        private bool classMoveBool;
         string[,] objectArray = new string[8, 8];
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
+      
         public DynamicGridBuilder()
         {
             serviceHandler = new ServiceHandler();
@@ -423,50 +424,50 @@ namespace Online_Skak
         //Returns if we have proposed a legal move of a chess piece following the ruleset (true/false).
         private bool MoveChessPiece(int row, int col, int desiredRow, int desiredCol, string s)
         {
-            bool b, c;
+            bool c;
             string[] st = s.Split('_');
             switch (s)
             {
                 case "Tower_0":
                 case "Tower_1":
-                    b = tower.Move(row, col, desiredRow, desiredCol);
+                    classMoveBool = tower.Move(row, col, desiredRow, desiredCol);
                     c = TowerMove(row, col, desiredRow, desiredCol, s);
-                    if (b && c) return true;
+                    if (classMoveBool && c) return true;
                     return false;
 
                 case "Pawn_0":
                 case "Pawn_1":
-                    b = pawn.Move(row, col, desiredRow, desiredCol, s);
+                    classMoveBool = pawn.Move(row, col, desiredRow, desiredCol, s);
                     c = PawnMove(row, col, desiredRow, desiredCol, s);
-                    if (b && c) return true;
+                    if (classMoveBool && c) return true;
                     return false;
 
                 case "BishopWhite_0":
                 case "BishopWhite_1":
-                    b = bishop.Move(row, col, desiredRow, desiredCol);
+                    classMoveBool = bishop.Move(row, col, desiredRow, desiredCol);
                     c = BishopMove(row, col, desiredRow, desiredCol, "White", s);
-                    if (b && c) return true;
+                    if (classMoveBool && c) return true;
                     return false;
 
                 case "BishopBlack_0":
                 case "BishopBlack_1":
-                    b = bishop.Move(row, col, desiredRow, desiredCol);
+                    classMoveBool = bishop.Move(row, col, desiredRow, desiredCol);
                     c = BishopMove(row, col, desiredRow, desiredCol, "Black", s);
-                    if (b && c) return true;
+                    if (classMoveBool && c) return true;
                     return false;
 
                 case "Knight_0":
                 case "Knight_1":
-                    b = knight.Move(row, col, desiredRow, desiredCol);
+                    classMoveBool = knight.Move(row, col, desiredRow, desiredCol);
                     c = KnightMove(row, col, desiredRow, desiredCol, s);
-                    if (b && c) return true;
+                    if (classMoveBool && c) return true;
                     return false;
 
                 case "King_0":
                 case "King_1":
-                    b = king.Move(row, col, desiredRow, desiredCol);
+                    classMoveBool = king.Move(row, col, desiredRow, desiredCol);
                     c = KingMove(row, col, desiredRow, desiredCol, s);
-                    if (b && c) return true;
+                    if (classMoveBool && c) return true;
                     return false;
 
                 case "Queen_0":
@@ -479,8 +480,8 @@ namespace Online_Skak
                     {
                         c = QueenMove(row, col, desiredRow, desiredCol, "White", s);
                     }
-                    b = queen.Move(row, col, desiredRow, desiredCol);
-                    if (b && c) return true;
+                    classMoveBool = queen.Move(row, col, desiredRow, desiredCol);
+                    if (classMoveBool && c) return true;
                     return false;
 
                 default:
@@ -692,17 +693,78 @@ namespace Online_Skak
             InitCol = Int32.Parse(listNew[3]);
             row = Int32.Parse(listNew[4]);
             column = Int32.Parse(listNew[5]);
-
+            string btnDown = objectArray[InitRow, InitCol];
             string click = objectArray[row, column];
             char lastClick = click[click.Length - 1];
 
-            for (int i = InitRow; i <= row; i++)
+            Console.WriteLine("hej" + btnDown + click);
+            if(roundGameCounter % 2 == 0)
             {
-                for (int j = InitCol; j <= column; j++)
+                if (btnDown == "Pawn_0")
                 {
-                    AddChessPieceToList(i, j, list, objectArray[i, j]);
+
+                    if (InitRow != 7 && objectArray[InitRow + 1, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(row - InitRow) == 1)
+                    {
+                        classMoveBool = false;
+
+                    }
+                    if (InitRow < 6 && objectArray[InitRow + 2, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(row - InitRow) == 2)
+                    {
+                        classMoveBool = false;
+                    }
+                    if (InitCol != 7 && objectArray[InitRow + 1, InitCol + 1] != "Online_Skak.BoardButton" && InitCol + 1 == column)
+                    {
+                        classMoveBool = true;
+                    }
+
+                    if (InitCol != 0 && objectArray[InitRow + 1, InitCol -1] != "Online_Skak.BoardButton" && InitCol - 1 == column)
+                    {
+                        classMoveBool = true;
+                    }
+                }
+               
+            }
+            else
+            {
+                if (click == "Pawn_1")
+                {
+
+                    if (InitRow != 0 && objectArray[InitRow - 1, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(InitRow - row) == 1)
+                    {
+                        classMoveBool = false;
+
+                    }
+                    if (InitRow < 1 && objectArray[InitRow - 2, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(InitRow - row) == 2)
+                    {
+                        classMoveBool = false;
+
+                    }
+                    if (InitCol != 7 && objectArray[InitRow - 1, InitCol + 1] != "Online_Skak.BoardButton" && InitCol + 1 == column)
+                    {
+                        classMoveBool = true;
+                    }
+
+                    if (InitCol != 0 && objectArray[InitRow - 1, InitCol - 1] != "Online_Skak.BoardButton" && InitCol - 1 == column)
+                    {
+                        classMoveBool = true;
+                    }
                 }
             }
+            if(InitCol != column && Math.Abs(row - InitRow) == 1)
+            {
+                AddChessPieceToList(InitRow, InitCol, list, objectArray[InitRow, InitCol]);
+                AddChessPieceToList(row, column, list, objectArray[row, column]);
+            } else
+            {
+                for (int i = InitRow; i <= row; i++)
+                {
+                    for (int j = InitCol; j <= column; j++)
+                    {
+                        AddChessPieceToList(i, j, list, objectArray[i, j]);
+                    }
+                }
+            }
+            
             return CheckIfMoveIsLegal(list, b1, b2, lastClick, click, caller);
         }
 

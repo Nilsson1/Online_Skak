@@ -439,6 +439,7 @@ namespace Online_Skak
                 case "Pawn_1":
                     classMoveBool = pawn.Move(row, col, desiredRow, desiredCol, s);
                     c = PawnMove(row, col, desiredRow, desiredCol, s);
+                    Console.WriteLine(classMoveBool + "" + c);
                     if (classMoveBool && c) return true;
                     return false;
 
@@ -697,63 +698,58 @@ namespace Online_Skak
             string click = objectArray[row, column];
             char lastClick = click[click.Length - 1];
 
-            Console.WriteLine("hej" + btnDown + click);
+            Console.WriteLine("hej" + InitRow + "" + InitCol + "" + row + "" + column);
+            Console.WriteLine(btnDown);
             if(roundGameCounter % 2 == 0)
             {
-                if (btnDown == "Pawn_0")
+
+                if (InitRow != 7 && objectArray[InitRow + 1, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(row - InitRow) == 1)
                 {
+                    classMoveBool = false;
 
-                    if (InitRow != 7 && objectArray[InitRow + 1, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(row - InitRow) == 1)
-                    {
-                        classMoveBool = false;
+                }
+                if (InitRow < 6 && objectArray[InitRow + 2, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(row - InitRow) == 2)
+                {
+                    classMoveBool = false;
+                }
+                if (InitCol != 7 && objectArray[InitRow + 1, InitCol + 1] != "Online_Skak.BoardButton" && Math.Abs(InitCol - column) == 1)
+                {
+                    classMoveBool = true;
+                }
 
-                    }
-                    if (InitRow < 6 && objectArray[InitRow + 2, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(row - InitRow) == 2)
-                    {
-                        classMoveBool = false;
-                    }
-                    if (InitCol != 7 && objectArray[InitRow + 1, InitCol + 1] != "Online_Skak.BoardButton" && InitCol + 1 == column)
-                    {
-                        classMoveBool = true;
-                    }
-
-                    if (InitCol != 0 && objectArray[InitRow + 1, InitCol -1] != "Online_Skak.BoardButton" && InitCol - 1 == column)
-                    {
-                        classMoveBool = true;
-                    }
+                if (InitCol != 0 && objectArray[InitRow + 1, column - 1] != "Online_Skak.BoardButton" && Math.Abs(InitCol - column) == 1)
+                {
+                    classMoveBool = true;
                 }
                
             }
             else
             {
-                if (click == "Pawn_1")
+
+                if (row != 0 && objectArray[row - 1, column] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(InitRow - row) == 1)
                 {
+                    classMoveBool = false;
 
-                    if (InitRow != 0 && objectArray[InitRow - 1, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(InitRow - row) == 1)
-                    {
-                        classMoveBool = false;
+                }
+                if (row < 1 && objectArray[row - 2, column] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(InitRow - row) == 2)
+                {
+                    classMoveBool = false;
 
-                    }
-                    if (InitRow < 1 && objectArray[InitRow - 2, InitCol] != "Online_Skak.BoardButton" && InitCol == column && Math.Abs(InitRow - row) == 2)
-                    {
-                        classMoveBool = false;
+                }
+                if (column != 7 && objectArray[row - 1, InitCol + 1] != "Online_Skak.BoardButton" && Math.Abs(column - InitCol) == 1)
+                {
+                    classMoveBool = true;
+                }
 
-                    }
-                    if (InitCol != 7 && objectArray[InitRow - 1, InitCol + 1] != "Online_Skak.BoardButton" && InitCol + 1 == column)
-                    {
-                        classMoveBool = true;
-                    }
-
-                    if (InitCol != 0 && objectArray[InitRow - 1, InitCol - 1] != "Online_Skak.BoardButton" && InitCol - 1 == column)
-                    {
-                        classMoveBool = true;
-                    }
+                if (column != 0 && objectArray[row - 1, column - 1] != "Online_Skak.BoardButton" && Math.Abs(column - InitCol) == 1)
+                {
+                    classMoveBool = true;
                 }
             }
-            if(InitCol != column && Math.Abs(row - InitRow) == 1)
+            if(InitCol != column)
             {
-                AddChessPieceToList(InitRow, InitCol, list, objectArray[InitRow, InitCol]);
-                AddChessPieceToList(row, column, list, objectArray[row, column]);
+                AddChessPieceToList(InitRow,InitCol, list, objectArray[InitRow, InitCol]);
+                AddChessPieceToList(row,column, list, objectArray[row, column]);
             } else
             {
                 for (int i = InitRow; i <= row; i++)
@@ -906,6 +902,7 @@ namespace Online_Skak
                         }
                     }
                 }
+                Console.WriteLine(list.Count);
                 if (list.Count <= 1)
                 {
                     return true;

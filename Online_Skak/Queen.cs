@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Online_Skak
 {
@@ -20,7 +21,10 @@ namespace Online_Skak
             SetDefaultButtonColor(queenButton, row, column);
 
             SetButtonName(queenButton, "Queen_" + team);
-            queenButton.Content = "Queen "+team;
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri(@"/Pieces/PawnB.png", UriKind.Relative));
+            image.Source = new BitmapImage(new Uri(@"/Pieces/PawnW.png", UriKind.Relative));
+            queenButton.Content = image;
 
             Form.GridName.Children.Add(queenButton);
         }
@@ -51,7 +55,12 @@ namespace Online_Skak
             return queenButton;
         }
 
-
+        public void SetImage()
+        {
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri(@"/Pieces/QueenB.png", UriKind.Relative));
+            image.Source = new BitmapImage(new Uri(@"/Pieces/QueenW.png", UriKind.Relative));
+        }
 
     }
 }

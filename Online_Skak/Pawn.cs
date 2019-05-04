@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Online_Skak
 {
@@ -17,8 +18,9 @@ namespace Online_Skak
 
             SetDefaultButtonColor(pawnButton, row, column);
             pawnButton.Name = "Pawn_" + team;
-            pawnButton.Content = "Pawn " +team;
-
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri(@"/Pieces/PawnB.png", UriKind.Relative));
+            pawnButton.Content = image;
             Form.GridName.Children.Add(pawnButton);
         }
 
@@ -32,6 +34,11 @@ namespace Online_Skak
             return pawnButton;
         }
 
+        public void SetImage()
+        {
+            Image image = new Image();
+            image.Source = new BitmapImage(new Uri(@"/Pieces/PawnB.png",UriKind.Relative));
+        }
         public bool Move(int row, int col, int desiredRow, int desiredCol, string name)
         {
             if (desiredCol != col)

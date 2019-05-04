@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Online_Skak
 {
@@ -44,13 +45,27 @@ namespace Online_Skak
             button.Foreground = new SolidColorBrush(colorFG);
         }
 
+        protected Image SetImage(int team, string chessPiece)
+        {
+            Image image = new Image();
+            if (team == 0)
+            {
+                image.Source = new BitmapImage(new Uri(@"/Pieces/" + chessPiece + "W.png", UriKind.Relative));
+            }
+            else
+            {
+                image.Source = new BitmapImage(new Uri(@"/Pieces/" + chessPiece + "B.png", UriKind.Relative));
+            }
+            return image;
+        }
+
         //Sets the fore- and background color of a button that is created at the start of the game.
         protected void SetDefaultButtonColor(Button button, int i, int j)
         {
             bool defaultButtonIsWhite = (i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0);
             if (defaultButtonIsWhite)
             {
-                SetColor(button, Colors.White, Colors.Black);
+                SetColor(button, Colors.White, Colors.DarkGray);
             }
             else
             {

@@ -22,10 +22,7 @@ namespace Online_Skak
             SetDefaultButtonColor(bishopButton, row, column);
 
             SetButtonName(bishopButton, "Bishop" + color + "_"+team);
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri(@"/Pieces/BishopB.png", UriKind.Relative));
-            image.Source = new BitmapImage(new Uri(@"/Pieces/BishopW.png", UriKind.Relative));
-            bishopButton.Content = image;
+            bishopButton.Content = SetImage(team, "Bishop");
 
             Form.GridName.Children.Add(bishopButton);
 
@@ -39,13 +36,6 @@ namespace Online_Skak
         public Button GetButton()
         {
             return bishopButton;
-        }
-
-        public void SetImage()
-        {
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri(@"/Pieces/BishopB.png", UriKind.Relative))
-            image.Source = new BitmapImage(new Uri(@"/Pieces/BishopW.png", UriKind.Relative)   ;
         }
 
         public bool Move(int row, int col, int desiredRow, int desiredCol)

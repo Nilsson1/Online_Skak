@@ -21,10 +21,7 @@ namespace Online_Skak
             SetDefaultButtonColor(queenButton, row, column);
 
             SetButtonName(queenButton, "Queen_" + team);
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri(@"/Pieces/PawnB.png", UriKind.Relative));
-            image.Source = new BitmapImage(new Uri(@"/Pieces/PawnW.png", UriKind.Relative));
-            queenButton.Content = image;
+            queenButton.Content = SetImage(team, "Queen");
 
             Form.GridName.Children.Add(queenButton);
         }

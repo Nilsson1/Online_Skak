@@ -21,10 +21,7 @@ namespace Online_Skak
             SetDefaultButtonColor(kingButton, row, column);
 
             SetButtonName(kingButton, "King_" + team);
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri(@"/Pieces/KingB.png", UriKind.Relative));
-            image.Source = new BitmapImage(new Uri(@"/Pieces/KingW.png", UriKind.Relative));
-            kingButton.Content = image;
+            kingButton.Content = SetImage(team, "King");
 
             Form.GridName.Children.Add(kingButton);
         }
@@ -37,13 +34,6 @@ namespace Online_Skak
         public Button GetButton()
         {
             return kingButton;
-        }
-
-        public void SetImage()
-        {
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri(@"/Pieces/KingB.png", UriKind.Relative));
-            image.Source = new BitmapImage(new Uri(@"/Pieces/KingW.png", UriKind.Relative));
         }
 
         public bool Move(int row, int col, int desiredRow, int desiredCol)

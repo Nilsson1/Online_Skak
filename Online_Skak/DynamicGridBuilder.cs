@@ -404,20 +404,20 @@ namespace Online_Skak
 
             if (firstButtonIsWhite)
             {
-                SetColor(buttonSwap, Colors.White, Colors.Black);
+                SetColor(buttonSwap, Colors.White, Colors.DarkGray);
             }
             else
             {
-                SetColor(buttonSwap, Colors.Black, Colors.White);
+                SetColor(buttonSwap, Colors.DarkGray, Colors.White);
             }
 
             if (secondButtonIsWhite)
             {
-                SetColor(b, Colors.White, Colors.Black);
+                SetColor(b, Colors.White, Colors.DarkGray);
             }
             else
             {
-                SetColor(b, Colors.Black, Colors.White);
+                SetColor(b, Colors.DarkGray, Colors.White);
             }
         }
 

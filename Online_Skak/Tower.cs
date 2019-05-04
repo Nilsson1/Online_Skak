@@ -22,10 +22,7 @@ namespace Online_Skak
             SetDefaultButtonColor(towerButton, row, column);
 
             towerButton.Name = "Tower_"+team;
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri(@"/Pieces/RookB.png", UriKind.Relative));
-            image.Source = new BitmapImage(new Uri(@"/Pieces/RookW.png", UriKind.Relative));
-            towerButton.Content = image;
+            towerButton.Content = SetImage(team, "Rook");
 
             Form.GridName.Children.Add(towerButton);
         }
@@ -40,12 +37,6 @@ namespace Online_Skak
             return towerButton;
         }
 
-        public void SetImage()
-        {
-            Image image = new Image();
-            image.Source = new BitmapImage(new Uri(@"/Pieces/RookB.png", UriKind.Relative));
-            image.Source = new BitmapImage(new Uri(@"/Pieces/RookW.png", UriKind.Relative));
-        }
         public bool Move(int row, int col, int desiredRow, int desiredCol)
         {
             if (!(desiredCol == col || desiredRow == row))

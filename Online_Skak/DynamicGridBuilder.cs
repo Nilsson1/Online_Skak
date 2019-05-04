@@ -276,6 +276,16 @@ namespace Online_Skak
             return element;
         }
 
+        private Button SpawnQueenButton(string classType)
+        {
+            if ( == 0)
+            {
+                queen = new Queen(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+                objectArray[row, column] = queen.GetButtonName();
+                counter++;
+                continue;
+            }
+        }
         //Swap the two buttons chosen by Btn_PreviewMouseLeftButtonUp and Btn_PreviewMouseLeftButtonDown.
         private Button SwapTwoButtons(string classType)
         {
@@ -712,16 +722,16 @@ namespace Online_Skak
                 {
                     classMoveBool = false;
                 }
-                if (InitCol != 7 && objectArray[InitRow + 1, InitCol + 1] != "Online_Skak.BoardButton" && Math.Abs(InitCol - column) == 1)
+
+                if (InitCol != 7 && objectArray[InitRow + 1, InitCol + 1] != "Online_Skak.BoardButton" && Math.Abs(InitCol - column) == 1 && Math.Abs(InitRow - row) == 1)
+                {
+                    classMoveBool = true;
+                }
+                if (InitCol != 0 && objectArray[InitRow + 1, column - 1] != "Online_Skak.BoardButton" && Math.Abs(InitCol - column) == 1 && Math.Abs(InitRow - row) == 1)
                 {
                     classMoveBool = true;
                 }
 
-                if (InitCol != 0 && objectArray[InitRow + 1, column - 1] != "Online_Skak.BoardButton" && Math.Abs(InitCol - column) == 1)
-                {
-                    classMoveBool = true;
-                }
-               
             }
             else
             {

@@ -314,6 +314,18 @@ namespace Online_Skak
                 Console.WriteLine(kingString);
                 System.Windows.Application.Current.Shutdown();
             }
+            for (int i = 0; i < 8; i++)
+            {
+                if (objectArray[0,i] == "Pawn_1")
+                {
+                    SpawnQueenButton(1, row, column);
+                }
+                if(objectArray[7,i] == "Pawn_0")
+                {
+                    SpawnQueenButton(0, row, column);
+                }
+            }
+            
             return buttonType;
         }
 
@@ -572,7 +584,16 @@ namespace Online_Skak
 
             return list;
         }
-    
+
+        private void SpawnQueenButton(int team, int row, int column)
+        {
+
+            Queen queen = new Queen(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+            objectArray[row, column] = queen.GetButtonName();
+            
+        }
+        
+
         //Puts all the different chesspieces into the List if they are in the way of the move and calls the "CheckIfMoveIsLegal" before returning true/false depending on the "CheckIfMoveIsLegal" function.
         private bool BishopMove(int InitRow, int InitCol, int row, int column, string color, string caller)
         {

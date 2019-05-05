@@ -56,7 +56,7 @@ namespace Online_Skak
             SetButtonColor(b, InitRow, InitCol, row, column);
             roundGameCounter++;
         }
-
+        
         //Creates 64 buttons for the chess board.
         public string[,] CreateBoardButtons()
         {

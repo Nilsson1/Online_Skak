@@ -12,12 +12,17 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
+        <Frame Name="main"></Frame>        
         <Grid x:Name="menu">
-            <Button x:Name="PlayButton" Content="Spil" HorizontalAlignment="Left" Margin="349,250,0,0" VerticalAlignment="Top" Width="126" Height="33" Click="Start_Click" Cursor="None"/>
-            <Button x:Name="Settingsbutton" Content="Indstillinger" HorizontalAlignment="Left" Margin="349,300,0,0" VerticalAlignment="Top" Width="126" Height="33" Click="Settingsbutton_Click"/>
-            <Button x:Name="ExitGame" Content="Slut" HorizontalAlignment="Left" Margin="349,350,0,0" VerticalAlignment="Top" Width="126" Height="33" Click="ExitGame_Click"/>
-            <Label x:Name="Label" Content="Online skak" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="303,102,0,0" Background="{x:Null}" FontWeight="Bold" FontStyle="Italic" Foreground="Black" FontSize="36" RenderTransformOrigin="0.507,0.476"/>
+            
+            <Grid.Background>
+                <ImageBrush ImageSource="Background/Baggrund2.jpg"/>
+            </Grid.Background>
+            <Button x:Name="PlayButton" Content="Spil" HorizontalAlignment="Left" Margin="639,279,0,0" VerticalAlignment="Top" Width="126" Height="33" Click="Start_Click" Cursor="None"/>
+            <Button x:Name="Settingsbutton" Content="Indstillinger" HorizontalAlignment="Left" Margin="639,329,0,0" VerticalAlignment="Top" Width="126" Height="33" Click="Settingsbutton_Click"/>
+            <Button x:Name="ExitGame" Content="Slut" HorizontalAlignment="Left" Margin="639,380,0,0" VerticalAlignment="Top" Width="126" Height="33" Click="ExitGame_Click"/>
+            <Label x:Name="Label" Content="Online skak" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="525,28,0,0" Background="{x:Null}" Foreground="White" FontSize="48" RenderTransformOrigin="0.507,0.476" FontWeight="Bold" FontFamily="Yu Gothic UI Light"/>
             <Image HorizontalAlignment="Left" Height="100" Margin="518,102,0,0" VerticalAlignment="Top" Width="100"/>
         </Grid>
     </Grid>

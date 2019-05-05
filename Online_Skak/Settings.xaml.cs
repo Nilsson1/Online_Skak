@@ -21,19 +21,20 @@ namespace Online_Skak
     /// </summary>
     public partial class Settings : Page
     {
-        Menu menu = new Menu();
+        Page1 page1;
 
-        public Settings()
+        public Settings(Page1 test)
         {
+            page1 = test;
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            Head.Content = new Menu();
-            settings.Visibility = Visibility.Hidden;
-            menu.Visibility = Visibility.Visible;
+           // Head.Content = new Menu();
+            page1.menu.Visibility = Visibility.Visible;
+            page1.main.Content = null;
         }
     }
 }

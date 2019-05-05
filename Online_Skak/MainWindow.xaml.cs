@@ -16,6 +16,8 @@ namespace Online_Skak
         {
             InitializeComponent();
 
+            Menu test = new Menu();
+            
 
             dynamicGridBuilder = new DynamicGridBuilder();
             var name = dynamicGridBuilder.CreateBoardButtons();

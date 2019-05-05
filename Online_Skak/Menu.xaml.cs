@@ -50,6 +50,7 @@ namespace Online_Skak
         {
             Main.Content = new Settings();
             menu.Visibility = Visibility.Hidden;
+
         }
 
         private void ExitGame_Click(object sender, RoutedEventArgs e)

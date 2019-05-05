@@ -8,8 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Settings">
 
-    <Grid Background="White">
-        <Label Content="Dette er en test" HorizontalAlignment="Left" Margin="287,194,0,0" VerticalAlignment="Top" FontSize="36"/>
 
+    <Grid Name="settings" Background="White">
+        <Frame x:Name="Head" NavigationUIVisibility="Hidden" Margin="0,0,-0.4,0">
+            <Frame.Background>
+                <ImageBrush ImageSource="Background/Baggrund2.jpg"/>
+            </Frame.Background>
+        </Frame>
+        <Label Content="Indstillinger" HorizontalAlignment="Left" Margin="310,28,0,0" VerticalAlignment="Top" FontSize="36" Background="{x:Null}" Foreground="White" FontFamily="Yu Gothic UI Light" FontWeight="Bold" RenderTransformOrigin="0.496,0.512"/>
+        <Button Content="Tilbage" FontSize="20" HorizontalAlignment="Left" Margin="668,385,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click" Height="35" FontFamily="Yu Gothic UI Light"/>
     </Grid>
 </Page>

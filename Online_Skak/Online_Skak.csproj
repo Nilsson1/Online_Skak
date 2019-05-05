@@ -175,5 +175,14 @@
     <Resource Include="Pieces\RookB.png" />
     <Resource Include="Pieces\RookW.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Background\Baggrund.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Background\ristedeMikkel.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Background\Baggrund2.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

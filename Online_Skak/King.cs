@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Online_Skak
 {
@@ -20,7 +21,7 @@ namespace Online_Skak
             SetDefaultButtonColor(kingButton, row, column);
 
             SetButtonName(kingButton, "King_" + team);
-            kingButton.Content = "King " + team;
+            kingButton.Content = SetImage(team, "King");
 
             Form.GridName.Children.Add(kingButton);
         }
@@ -34,7 +35,6 @@ namespace Online_Skak
         {
             return kingButton;
         }
-
 
         public bool Move(int row, int col, int desiredRow, int desiredCol)
         {

@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Online_Skak
 {
@@ -20,7 +22,7 @@ namespace Online_Skak
             SetDefaultButtonColor(towerButton, row, column);
 
             towerButton.Name = "Tower_"+team;
-            towerButton.Content = "Tower "+team;
+            towerButton.Content = SetImage(team, "Rook");
 
             Form.GridName.Children.Add(towerButton);
         }

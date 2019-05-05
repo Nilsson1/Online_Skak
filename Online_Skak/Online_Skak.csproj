@@ -159,5 +159,21 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pieces\PawnB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pieces\BishopB.png" />
+    <Resource Include="Pieces\BishopW.png" />
+    <Resource Include="Pieces\KingB.png" />
+    <Resource Include="Pieces\KingW.png" />
+    <Resource Include="Pieces\KnightB.png" />
+    <Resource Include="Pieces\KnightW.png" />
+    <Resource Include="Pieces\PawnW.png" />
+    <Resource Include="Pieces\QueenB.png" />
+    <Resource Include="Pieces\QueenW.png" />
+    <Resource Include="Pieces\RookB.png" />
+    <Resource Include="Pieces\RookW.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

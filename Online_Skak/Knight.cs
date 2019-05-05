@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Online_Skak
 {
@@ -20,7 +21,7 @@ namespace Online_Skak
             SetDefaultButtonColor(knightButton, row, column);
 
             SetButtonName(knightButton, "Knight_" + team);
-            knightButton.Content = "Knight " + team;
+            knightButton.Content = SetImage(team, "Knight");
 
             Form.GridName.Children.Add(knightButton);
         }

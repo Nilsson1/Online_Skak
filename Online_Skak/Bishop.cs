@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Online_Skak
 {
@@ -21,7 +22,7 @@ namespace Online_Skak
             SetDefaultButtonColor(bishopButton, row, column);
 
             SetButtonName(bishopButton, "Bishop" + color + "_"+team);
-            bishopButton.Content = "Bishop "+team;
+            bishopButton.Content = SetImage(team, "Bishop");
 
             Form.GridName.Children.Add(bishopButton);
 

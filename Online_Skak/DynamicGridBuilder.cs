@@ -29,13 +29,58 @@ namespace Online_Skak
         private Button b;
         private bool classMoveBool;
         string[,] objectArray = new string[8, 8];
+
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
-      
         public DynamicGridBuilder()
         {
             serviceHandler = new ServiceHandler();
             serviceHandler.MessageRecieved += HandleMessage;
+
+            List<ColumnDefinition> listC = new List<ColumnDefinition>();
+            List<RowDefinition> listR = new List<RowDefinition>();
+
+            ColumnDefinition c0 = new ColumnDefinition();
+            ColumnDefinition c1 = new ColumnDefinition();
+            ColumnDefinition c2 = new ColumnDefinition();
+            ColumnDefinition c3 = new ColumnDefinition();
+            ColumnDefinition c4 = new ColumnDefinition();
+            ColumnDefinition c5 = new ColumnDefinition();
+            ColumnDefinition c6 = new ColumnDefinition();
+            ColumnDefinition c7 = new ColumnDefinition();
+            RowDefinition r0 = new RowDefinition();
+            RowDefinition r1 = new RowDefinition();
+            RowDefinition r2 = new RowDefinition();
+            RowDefinition r3 = new RowDefinition();
+            RowDefinition r4 = new RowDefinition();
+            RowDefinition r5 = new RowDefinition();
+            RowDefinition r6 = new RowDefinition();
+            RowDefinition r7 = new RowDefinition();
+            listC.Add(c0);
+            listC.Add(c1);
+            listC.Add(c2);
+            listC.Add(c3);
+            listC.Add(c4);
+            listC.Add(c5);
+            listC.Add(c6);
+            listC.Add(c7);
+            listR.Add(r0);
+            listR.Add(r1);
+            listR.Add(r2);
+            listR.Add(r3);
+            listR.Add(r4);
+            listR.Add(r5);
+            listR.Add(r6);
+            listR.Add(r7);
+
+            foreach (ColumnDefinition c in listC)
+            {
+                Form.GridName.ColumnDefinitions.Add(c);
+            }
+            foreach(RowDefinition r in listR)
+            {
+                Form.GridName.RowDefinitions.Add(r);
+            }
         }
 
         public void HandleMessage(string message)

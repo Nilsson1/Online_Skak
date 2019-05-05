@@ -18,6 +18,7 @@ namespace Online_Skak
  
         protected MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
+
         //Sets the button in the grid according to the desired position.
         protected void SetButtonPosition(Button button, int row, int column)
         {

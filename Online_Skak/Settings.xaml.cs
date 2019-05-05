@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace Online_Skak
 {
     /// <summary>
@@ -20,9 +21,19 @@ namespace Online_Skak
     /// </summary>
     public partial class Settings : Page
     {
+        Menu menu = new Menu();
+
         public Settings()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            Head.Content = new Menu();
+            settings.Visibility = Visibility.Hidden;
+            menu.Visibility = Visibility.Visible;
         }
     }
 }

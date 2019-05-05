@@ -9,18 +9,16 @@ namespace Online_Skak
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : Window
     {
-        DynamicGridBuilder dynamicGridBuilder = null;
         public MainWindow()
         {
             InitializeComponent();
-
-            Menu test = new Menu();
-            
-
-            dynamicGridBuilder = new DynamicGridBuilder();
-            var name = dynamicGridBuilder.CreateBoardButtons();
+            SetSource("Page1.xaml");
+        }
+        public void SetSource(string URL)
+        {
+            frame.Source = new Uri(URL, UriKind.RelativeOrAbsolute);
         }
     }
 }

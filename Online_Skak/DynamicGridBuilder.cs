@@ -243,7 +243,7 @@ namespace Online_Skak
             return objectArray;
         }
 
-        //This is called whenever a button is pressed down.
+        //This is called whenever a button is released (no longer pressed down).
         private void Btn_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Console.WriteLine("sender: " + sender);
@@ -274,13 +274,15 @@ namespace Online_Skak
             }
         }
 
-        //This is called whenever a button is released (no longer pressed down).
+        //This is called whenever a button is pressed down.
         private void Btn_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (CheckIfBoard(sender)) return;
             InitRow = GetRow(e);
             InitCol = GetColumn(e);
+
         }
+        
 
         //Finds the team (0 ir 1) the current chess piece belongs to.
         private void FindChessPieceTeam(string s)

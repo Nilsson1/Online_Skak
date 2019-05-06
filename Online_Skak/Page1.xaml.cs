@@ -33,14 +33,14 @@ namespace Online_Skak
 
         private void Settingsbutton_Click(object sender, RoutedEventArgs e)
         {
-            //Main.Content = new Settings();
+            main.Content = new Settings(this);
             menu.Visibility = Visibility.Hidden;
 
         }
 
         private void ExitGame_Click(object sender, RoutedEventArgs e)
         {
-            // Application.Exit();
+           Application.Current.MainWindow.Close();
         }
     }
 }

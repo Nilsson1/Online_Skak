@@ -28,6 +28,7 @@ namespace Online_Skak
         {
             DynamicGridBuilder d = new DynamicGridBuilder();
             d.CreateBoardButtons();
+
         }
 
         private void Settingsbutton_Click(object sender, RoutedEventArgs e)

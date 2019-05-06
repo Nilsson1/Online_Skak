@@ -5,9 +5,10 @@ namespace Online_Skak
 {
     public class BoardButton : ButtonClass
     {
+        Button button;
         public BoardButton(int row, int column, int counter, MouseButtonEventHandler down)
         {
-            Button button = new Button();
+            button = new Button();
             SetDefaultButtonColor(button, row, column);
             SetButtonPosition(button, row, column);
 
@@ -17,7 +18,12 @@ namespace Online_Skak
 
             button.PreviewMouseLeftButtonDown += down;
          
-            Form.GridName.Children.Add(button);
+            //Form.GridName.Children.Add(button);
+        }
+
+        public Button GetButton()
+        {
+            return button;
         }
     }
 }

@@ -27,8 +27,13 @@ namespace Online_Skak
         private int team;
         private int roundGameCounter = 0;
         private Button b;
+        private bool c;
         private bool classMoveBool;
         string[,] objectArray = new string[8, 8];
+        private int whiteRightTower = 0;
+        private int whiteLeftTower = 0;
+        private int whiteKing = 0;
+        Grid GridName;
 
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
@@ -37,6 +42,11 @@ namespace Online_Skak
             serviceHandler = new ServiceHandler();
             serviceHandler.MessageRecieved += HandleMessage;
 
+            GridName = new Grid();
+            GridName.Width = 800;
+            GridName.Height = 800;
+            GridName.ShowGridLines = true;
+            
             List<ColumnDefinition> listC = new List<ColumnDefinition>();
             List<RowDefinition> listR = new List<RowDefinition>();
 
@@ -75,12 +85,14 @@ namespace Online_Skak
 
             foreach (ColumnDefinition c in listC)
             {
-                Form.GridName.ColumnDefinitions.Add(c);
+                GridName.ColumnDefinitions.Add(c);
+                
             }
             foreach(RowDefinition r in listR)
             {
-                Form.GridName.RowDefinitions.Add(r);
+                GridName.RowDefinitions.Add(r);
             }
+            Form.frame.Content = GridName;
         }
 
         public void HandleMessage(string message)
@@ -97,7 +109,7 @@ namespace Online_Skak
             row = Int32.Parse(splitMsg[3]);
             column = Int32.Parse(splitMsg[4]);
 
-            b = SwapTwoButtons(sender);
+            b = SwapTwoButtons(sender, InitRow, InitCol, row, column);
             SetButtonColor(b, InitRow, InitCol, row, column);
             roundGameCounter++;
         }
@@ -115,6 +127,7 @@ namespace Online_Skak
                         pawn = new Pawn(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         counter++;
                         objectArray[row, column] = pawn.GetButtonName();
+                        GridName.Children.Add(pawn.GetButton());
                         continue;
                     }
                     if(row == 6)
@@ -122,6 +135,7 @@ namespace Online_Skak
                         pawn = new Pawn(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         counter++;
                         objectArray[row, column] = pawn.GetButtonName();
+                        GridName.Children.Add(pawn.GetButton());
                         continue;
                     }
                     else if ((row == 0 && column == 0) || (row == 0 && column == 7))
@@ -129,6 +143,7 @@ namespace Online_Skak
                         tower = new Tower(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = tower.GetButtonName();
                         counter++;
+                        GridName.Children.Add(tower.GetButton());
                         continue;
                     }
                     else if ((row == 7 && column == 0)|| (row == 7 && column == 7))
@@ -136,6 +151,7 @@ namespace Online_Skak
                         tower = new Tower(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = tower.GetButtonName();
                         counter++;
+                        GridName.Children.Add(tower.GetButton());
                         continue;
                     }
                     else if ((row == 0 && column == 1) || (row == 0 && column == 6))
@@ -143,6 +159,7 @@ namespace Online_Skak
                         knight = new Knight(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = knight.GetButtonName();
                         counter++;
+                        GridName.Children.Add(knight.GetButton());
                         continue;
                     }
                     else if ((row == 7 && column == 1) || (row == 7 && column == 6))
@@ -150,6 +167,7 @@ namespace Online_Skak
                         knight = new Knight(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = knight.GetButtonName();
                         counter++;
+                        GridName.Children.Add(knight.GetButton());
                         continue;
                     }
                     else if (row == 0 && column == 2)
@@ -157,6 +175,7 @@ namespace Online_Skak
                         bishop = new Bishop(row, column,"White", 0,  Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = bishop.GetButtonName();
                         counter++;
+                        GridName.Children.Add(bishop.GetButton());
                         continue;
                     }
                     else if(row == 0 && column == 5)
@@ -164,6 +183,7 @@ namespace Online_Skak
                         bishop = new Bishop(row, column, "Black", 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = bishop.GetButtonName();
                         counter++;
+                        GridName.Children.Add(bishop.GetButton());
                         continue;
                     }
                     else if (row == 7 && column == 5)
@@ -171,6 +191,7 @@ namespace Online_Skak
                         bishop = new Bishop(row, column, "White", 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = bishop.GetButtonName();
                         counter++;
+                        GridName.Children.Add(bishop.GetButton());
                         continue;
                     }
                     else if (row == 7 && column == 2)
@@ -178,6 +199,7 @@ namespace Online_Skak
                         bishop = new Bishop(row, column, "Black", 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = bishop.GetButtonName();
                         counter++;
+                        GridName.Children.Add(bishop.GetButton());
                         continue;
                     }
                     else if ((row == 0 && column == 4))
@@ -185,6 +207,7 @@ namespace Online_Skak
                         king = new King(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = king.GetButtonName();
                         counter++;
+                        GridName.Children.Add(king.GetButton());
                         continue;
                     }
                     else if ((row == 7 && column == 4))
@@ -192,6 +215,7 @@ namespace Online_Skak
                         king = new King(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = king.GetButtonName();
                         counter++;
+                        GridName.Children.Add(king.GetButton());
                         continue;
                     }
                     else if ((row == 0 && column == 3))
@@ -199,6 +223,7 @@ namespace Online_Skak
                         queen = new Queen(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = queen.GetButtonName();
                         counter++;
+                        GridName.Children.Add(queen.GetButton());
                         continue;
                     }
                     else if ((row == 7 && column == 3))
@@ -206,11 +231,13 @@ namespace Online_Skak
                         queen = new Queen(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = queen.GetButtonName();
                         counter++;
+                        GridName.Children.Add(queen.GetButton());
                         continue;
                     }
                     BoardButton boardButton = new BoardButton(row, column, counter, Btn_PreviewMouseLeftButtonDown);
                     objectArray[row, column] = boardButton.ToString();
                     counter++;
+                    GridName.Children.Add(boardButton.GetButton());
                 }
             }
             return objectArray;
@@ -237,7 +264,7 @@ namespace Online_Skak
                 {
                     if (MoveChessPiece(InitRow, InitCol, row, column, s))
                     {
-                        btn = SwapTwoButtons(s);
+                        btn = SwapTwoButtons(s, InitRow, InitCol, row, column);
                         SetButtonColor(btn, InitRow, InitCol, row, column);
                         roundGameCounter++;
                         serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString());
@@ -274,6 +301,36 @@ namespace Online_Skak
             }
         }
 
+        private void Castling(string kingName, string towerName, int InitRow, int InitCol, int row, int column)
+        {
+            if (objectArray[InitRow, InitCol] == kingName && objectArray[row, column] == towerName)
+            {
+                if(column > InitCol)
+                {
+                    if(objectArray[InitRow, InitCol+1] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol+2] == "Online_Skak.BoardButton" && whiteRightTower == 0 && whiteKing == 0)
+                    {
+                        serviceHandler.SendMessage("King_0, 0, 4, 0, 6");
+                        serviceHandler.SendMessage("Tower_0, 0, 7, 0, 5");
+                        SwapTwoButtons("Tower_0", 0, 7, 0, 5);
+                        SwapTwoButtons(kingName, InitRow, InitCol, row, InitCol + 2);
+                        roundGameCounter++;
+                    }
+                }
+                else
+                {
+                    if (objectArray[InitRow, InitCol - 1] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol - 2] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol - 3] == "Online_Skak.BoardButton" &&
+                        whiteLeftTower == 0 && whiteKing == 0)
+                    {
+                        serviceHandler.SendMessage("Tower_0, 0, 0, 0, 3");
+                        serviceHandler.SendMessage("King_0, 0, 4, 0, 2");
+                        SwapTwoButtons("Tower_0", 0, 0, 0, 3);
+                        SwapTwoButtons(kingName, InitRow, InitCol, row, InitCol - 2);
+                        roundGameCounter++;
+                    }
+                }
+            }
+        }
+
         //Returns which chesspiece (which type of button defined by each class) that is going to be moved.
         private Button FindButtonClass(string classType, Button element)
         {
@@ -288,6 +345,14 @@ namespace Online_Skak
                 case "Tower_1":
                     Tower tower1 = new Tower(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                     element = tower1.GetButton();
+                    if(InitRow == 0 && InitCol == 7)
+                    {
+                        whiteRightTower++;
+                    }
+                    else if(InitRow == 0 && InitCol == 0)
+                    {
+                        whiteLeftTower++;
+                    }
                     break;
                 case "Knight_0":
                 case "Knight_1":
@@ -322,17 +387,23 @@ namespace Online_Skak
         }
 
         //Swap the two buttons chosen by Btn_PreviewMouseLeftButtonUp and Btn_PreviewMouseLeftButtonDown.
-        private Button SwapTwoButtons(string classType)
+        private Button SwapTwoButtons(string classType, int InitRow, int InitCol, int row, int column)
         {
-            buttonSwap = (Button)GetChildren(Form.GridName, row, column);
+            buttonSwap = (Button)GetChildren(GridName, InitRow, InitCol);
             FindChessPieceTeam(classType);
 
             Button buttonType = new Button();
             buttonType = FindButtonClass(classType, buttonType);
+            
+            
             SetButtonPosition(buttonType, row, column);
+            SetButtonColor(buttonType, InitRow, InitCol, row, column);
 
-            Form.GridName.Children.Remove(buttonSwap);
+            GridName.Children.Remove(buttonSwap);
             BoardButton button = new BoardButton(InitRow, InitCol, 0, Btn_PreviewMouseLeftButtonDown);
+
+            GridName.Children.Add(button.GetButton());
+            GridName.Children.Add(buttonType);
 
             objectArray[InitRow, InitCol] = button.ToString();
             objectArray[row, column] = buttonType.Name;
@@ -394,10 +465,10 @@ namespace Online_Skak
         //Returns the column.
         private int GetColumn(MouseButtonEventArgs e)
         {
-            double x = e.GetPosition(Form.GridName).X;
+            double x = e.GetPosition(GridName).X;
             double cstart = 0.0;
             int column = 0;
-            foreach (ColumnDefinition cd in Form.GridName.ColumnDefinitions)
+            foreach (ColumnDefinition cd in GridName.ColumnDefinitions)
             {
                 cstart += cd.ActualWidth;
                 if (x < cstart)
@@ -412,10 +483,10 @@ namespace Online_Skak
         //Returns the row.
         private int GetRow(MouseButtonEventArgs e)
         {
-            double y = e.GetPosition(Form.GridName).Y;
+            double y = e.GetPosition(GridName).Y;
             double start = 0.0;
             int row = 0;
-            foreach (RowDefinition rd in Form.GridName.RowDefinitions)
+            foreach (RowDefinition rd in GridName.RowDefinitions)
             {
                 start += rd.ActualHeight;
                 if (y < start)
@@ -481,7 +552,7 @@ namespace Online_Skak
         //Returns if we have proposed a legal move of a chess piece following the ruleset (true/false).
         private bool MoveChessPiece(int row, int col, int desiredRow, int desiredCol, string s)
         {
-            bool c;
+            //bool c;
             string[] st = s.Split('_');
             switch (s)
             {
@@ -526,6 +597,7 @@ namespace Online_Skak
                     classMoveBool = king.Move(row, col, desiredRow, desiredCol);
                     c = KingMove(row, col, desiredRow, desiredCol, s);
                     if (classMoveBool && c) return true;
+                    Castling(s, objectArray[row, column], InitRow, InitCol, row, column);
                     return false;
 
                 case "Queen_0":
@@ -545,6 +617,7 @@ namespace Online_Skak
                 default:
                     return false;
             }
+
         }
 
         //Adds the chesspiece to the list if its "in the way" of the proposed move.
@@ -839,14 +912,14 @@ namespace Online_Skak
 
                 if (b1 == false && b2 == false)
                 {
-                    if (column != 7 && objectArray[InitRow, InitCol] != "Online_Skak.BoardButton" && row - InitRow == 1 && Math.Abs(column - InitCol) == 1)
+                    if (column != 0 && objectArray[InitRow, InitCol] != "Online_Skak.BoardButton" && row - InitRow == 1 && Math.Abs(column - InitCol) == 1)
                     {
                         classMoveBool = true;
                     }
                 }
                 else if (b1 == false && b2 == true)
                 {
-                    if (column != 0 && objectArray[InitRow, InitCol + 1] != "Online_Skak.BoardButton" && row - InitRow == 1 && Math.Abs(column - InitCol) == 1)
+                    if (column != 7 && objectArray[InitRow, InitCol + 1] != "Online_Skak.BoardButton" && row - InitRow == 1 && Math.Abs(column - InitCol) == 1)
                     {
                         classMoveBool = true;
                     }

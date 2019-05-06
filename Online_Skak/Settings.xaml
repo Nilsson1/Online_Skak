@@ -17,5 +17,8 @@
         </Frame>
         <Label Content="Indstillinger" HorizontalAlignment="Left" Margin="310,28,0,0" VerticalAlignment="Top" FontSize="36" Background="{x:Null}" Foreground="White" FontFamily="Yu Gothic UI Light" FontWeight="Bold" RenderTransformOrigin="0.496,0.512"/>
         <Button Content="Tilbage" FontSize="20" HorizontalAlignment="Left" Margin="668,385,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click" Height="35" FontFamily="Yu Gothic UI Light"/>
+        <CheckBox x:Name="Timer" Content="Unlimited time" HorizontalAlignment="Left" Margin="629,256,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI Light"  Background="#FFFFFBFB" Foreground="White"/>
+        <CheckBox Content="5 minutes" HorizontalAlignment="Left" Margin="629,287,0,0" VerticalAlignment="Top" FontSize="20" Foreground="White" FontWeight="Bold" FontFamily="Yu Gothic UI Light"/>
+        <CheckBox Content="10 minutes" HorizontalAlignment="Left" Margin="629,318,0,0" VerticalAlignment="Top" FontFamily="Yu Gothic UI Light" FontSize="20" Foreground="White"/>
     </Grid>
 </Page>

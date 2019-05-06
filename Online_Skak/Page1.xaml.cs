@@ -39,7 +39,7 @@ namespace Online_Skak
 
         private void ExitGame_Click(object sender, RoutedEventArgs e)
         {
-            // Application.Exit();
+           Application.Current.MainWindow.Close();
         }
     }
 }

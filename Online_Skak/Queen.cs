@@ -23,7 +23,7 @@ namespace Online_Skak
             SetButtonName(queenButton, "Queen_" + team);
             queenButton.Content = SetImage(team, "Queen");
 
-            Form.GridName.Children.Add(queenButton);
+            //Form.GridName.Children.Add(queenButton);
         }
 
         public bool Move(int row, int col, int desiredRow, int desiredCol)

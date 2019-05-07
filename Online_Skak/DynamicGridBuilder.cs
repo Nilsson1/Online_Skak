@@ -34,6 +34,9 @@ namespace Online_Skak
         private int whiteRightTower = 0;
         private int whiteLeftTower = 0;
         private int whiteKing = 0;
+        private int blackKing = 0;
+        private int blackRightTower = 0;
+        private int blackLeftTower = 0;
         Grid GridName;
         Label time;
 
@@ -334,23 +337,23 @@ namespace Online_Skak
             {
                 if(column > InitCol)
                 {
-                    if(objectArray[InitRow, InitCol+1] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol+2] == "Online_Skak.BoardButton" && whiteRightTower == 0 && whiteKing == 0)
+                    if(objectArray[InitRow, InitCol+1] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol+2] == "Online_Skak.BoardButton" && ((whiteRightTower == 0 && whiteKing == 0 && roundGameCounter % 2 == 0) || (blackRightTower == 0 && blackKing == 0 && roundGameCounter % 2 != 0)))
                     {
-                        serviceHandler.SendMessage("King_0, 0, 4, 0, 6");
-                        serviceHandler.SendMessage("Tower_0, 0, 7, 0, 5");
-                        SwapTwoButtons("Tower_0", 0, 7, 0, 5);
-                        SwapTwoButtons(kingName, InitRow, InitCol, row, InitCol + 2);
+                        serviceHandler.SendMessage(kingName + ", " + InitRow.ToString() + ", " + InitCol.ToString() + ", " + row.ToString() + ", " + (column-1).ToString());
+                        serviceHandler.SendMessage(towerName + ", " + row.ToString() + ", " + column.ToString() + ", " + InitRow.ToString() + ", " + (InitCol+1).ToString());
+                        SwapTwoButtons(towerName, row, column, InitRow, InitCol+1);
+                        SwapTwoButtons(kingName, InitRow, InitCol, row, column-1);
                         roundGameCounter++;
                     }
                 }
                 else
                 {
                     if (objectArray[InitRow, InitCol - 1] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol - 2] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol - 3] == "Online_Skak.BoardButton" &&
-                        whiteLeftTower == 0 && whiteKing == 0)
+                        ((whiteLeftTower == 0 && whiteKing == 0 && roundGameCounter % 2 == 0) || (blackLeftTower == 0 && blackKing == 0 && roundGameCounter % 2 != 0) ))
                     {
-                        serviceHandler.SendMessage("Tower_0, 0, 0, 0, 3");
-                        serviceHandler.SendMessage("King_0, 0, 4, 0, 2");
-                        SwapTwoButtons("Tower_0", 0, 0, 0, 3);
+                        serviceHandler.SendMessage(towerName + ", " + row.ToString() + ", " + column.ToString() + ", " + InitRow.ToString() + ", " + (column+3).ToString());
+                        serviceHandler.SendMessage(kingName + ", " + InitRow.ToString() + ", " + InitCol.ToString() + ", " + row.ToString() + ", " + (InitCol - 2).ToString());
+                        SwapTwoButtons(towerName, row, column, InitRow, column + 3);
                         SwapTwoButtons(kingName, InitRow, InitCol, row, InitCol - 2);
                         roundGameCounter++;
                     }
@@ -380,6 +383,14 @@ namespace Online_Skak
                     {
                         whiteLeftTower++;
                     }
+                    else if(InitRow == 7 && InitCol == 0)
+                    {
+                        blackLeftTower++;
+                    }
+                    else if(InitRow == 7 && InitCol == 7)
+                    {
+                        blackRightTower++;
+                    }
                     break;
                 case "Knight_0":
                 case "Knight_1":
@@ -400,6 +411,14 @@ namespace Online_Skak
                 case "King_1":
                     King king1 = new King(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                     element = king1.GetButton();
+                    if(InitRow == 0)
+                    {
+                        whiteKing++;
+                    }
+                    else
+                    {
+                        blackKing++;
+                    }
                     break;
                 case "Queen_0":
                 case "Queen_1":

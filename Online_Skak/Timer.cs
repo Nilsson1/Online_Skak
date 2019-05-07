@@ -12,11 +12,18 @@ namespace Online_Skak
     class Timer
     {
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        Label label = new Label();
+        Label label;
 
-        public Timer(Label label)
+        public Timer(int row, int column)
         {
-            this.label = label;
+            label = new Label();
+            //label.Name = "labelTime";
+            label.Content = "Test";
+            Grid.SetRow(label, 3);
+            Grid.SetColumn(label, 8);
+
+            label.Loaded += Time_Loaded;
+            
         }
 
         private void Time_Loaded(object sender, RoutedEventArgs e)
@@ -28,11 +35,14 @@ namespace Online_Skak
             Console.WriteLine(sender + "_" + e);
         }
 
+        public Label GetLabel()
+        {
+            return label;
+        }
+
         private int increment = 11;
         private void dtTicker(object sender, EventArgs e)
         {
-            
-            var label = (Label)sender;
             increment--;
             label.Content = increment.ToString();
             if ((String)label.Content == "5")

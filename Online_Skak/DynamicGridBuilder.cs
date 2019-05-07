@@ -47,10 +47,7 @@ namespace Online_Skak
             serviceHandler = new ServiceHandler();
             serviceHandler.MessageRecieved += HandleMessage;
             
-            time = new Label();
-            Timer timer = new Timer(time);
-            time.Name = "test";
-            time.Content = "Dette er en test ";
+
 
             //timer.dispa
 
@@ -142,9 +139,8 @@ namespace Online_Skak
                 {
                     if (row == 3 && column == 8)
                     {
-                        Grid.SetColumn(time, 8);
-                        Grid.SetRow(time, 3);
-                        GridName.Children.Add(time);
+                        Timer timer = new Timer(row, column);
+                        GridName.Children.Add(timer.GetLabel());
                     }
 
 

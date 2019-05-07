@@ -19,8 +19,8 @@ namespace Online_Skak
             label = new Label();
             //label.Name = "labelTime";
             label.Content = "Test";
-            Grid.SetRow(label, 3);
-            Grid.SetColumn(label, 8);
+            Grid.SetRow(label, row);
+            Grid.SetColumn(label, column);
 
             label.Loaded += Time_Loaded;
             

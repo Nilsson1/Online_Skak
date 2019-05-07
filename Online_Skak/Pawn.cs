@@ -20,7 +20,7 @@ namespace Online_Skak
             pawnButton.Name = "Pawn_" + team;
 
             pawnButton.Content = SetImage(team, "Pawn");
-            Form.GridName.Children.Add(pawnButton);
+            //Form.GridName.Children.Add(pawnButton);
         }
 
         public string GetButtonName()

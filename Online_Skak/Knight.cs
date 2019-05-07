@@ -23,7 +23,7 @@ namespace Online_Skak
             SetButtonName(knightButton, "Knight_" + team);
             knightButton.Content = SetImage(team, "Knight");
 
-            Form.GridName.Children.Add(knightButton);
+            //Form.GridName.Children.Add(knightButton);
         }
 
         public string GetButtonName()

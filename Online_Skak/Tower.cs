@@ -22,10 +22,10 @@ namespace Online_Skak
 
             SetDefaultButtonColor(towerButton, row, column);
 
-            towerButton.Name = "Tower_"+team;
+            towerButton.Name = "Tower_"+ team;
             towerButton.Content = SetImage(team, "Rook");
 
-            Form.GridName.Children.Add(towerButton);
+           // Form.GridName.Children.Add(towerButton);
         }
 
         public string GetButtonName()

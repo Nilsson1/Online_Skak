@@ -24,7 +24,7 @@ namespace Online_Skak
             SetButtonName(bishopButton, "Bishop" + color + "_"+team);
             bishopButton.Content = SetImage(team, "Bishop");
 
-            Form.GridName.Children.Add(bishopButton);
+            //Form.GridName.Children.Add(bishopButton);
 
         }
 

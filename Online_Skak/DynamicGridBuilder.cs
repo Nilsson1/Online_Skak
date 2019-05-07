@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Online_Skak
 {
@@ -34,6 +35,7 @@ namespace Online_Skak
         private int whiteLeftTower = 0;
         private int whiteKing = 0;
         Grid GridName;
+        Label time;
 
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
@@ -41,6 +43,15 @@ namespace Online_Skak
         {
             serviceHandler = new ServiceHandler();
             serviceHandler.MessageRecieved += HandleMessage;
+            
+            time = new Label();
+            Timer timer = new Timer(time);
+            time.Name = "test";
+            time.Content = "Dette er en test ";
+
+            //timer.dispa
+
+            //time.Loaded("Time_Loaded");*/
 
             GridName = new Grid();
             GridName.Width = 800;
@@ -58,6 +69,7 @@ namespace Online_Skak
             ColumnDefinition c5 = new ColumnDefinition();
             ColumnDefinition c6 = new ColumnDefinition();
             ColumnDefinition c7 = new ColumnDefinition();
+            ColumnDefinition c8 = new ColumnDefinition();
             RowDefinition r0 = new RowDefinition();
             RowDefinition r1 = new RowDefinition();
             RowDefinition r2 = new RowDefinition();
@@ -74,6 +86,7 @@ namespace Online_Skak
             listC.Add(c5);
             listC.Add(c6);
             listC.Add(c7);
+            listC.Add(c8);
             listR.Add(r0);
             listR.Add(r1);
             listR.Add(r2);
@@ -92,7 +105,9 @@ namespace Online_Skak
             {
                 GridName.RowDefinitions.Add(r);
             }
+            
             Form.frame.Content = GridName;
+
         }
 
         public void HandleMessage(string message)
@@ -117,12 +132,20 @@ namespace Online_Skak
         //Creates 64 buttons for the chess board.
         public string[,] CreateBoardButtons()
         {
-            Button[,] buttonArray = new Button[8, 8];
+            Button[,] buttonArray = new Button[8, 9];
             for (int row = 0; row < 8; row++)
             {
-                for (int column = 0; column < 8; column++)
+                for (int column = 0; column < 9; column++)
                 {
-                    if (row == 1)
+                    if (row == 3 && column == 8)
+                    {
+                        Grid.SetColumn(time, 8);
+                        Grid.SetRow(time, 3);
+                        GridName.Children.Add(time);
+                    }
+
+
+                    if (row == 1 && column !=8)
                     {
                         pawn = new Pawn(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         counter++;
@@ -130,7 +153,7 @@ namespace Online_Skak
                         GridName.Children.Add(pawn.GetButton());
                         continue;
                     }
-                    if(row == 6)
+                    if(row == 6 && column != 8)
                     {
                         pawn = new Pawn(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         counter++;
@@ -138,7 +161,7 @@ namespace Online_Skak
                         GridName.Children.Add(pawn.GetButton());
                         continue;
                     }
-                    else if ((row == 0 && column == 0) || (row == 0 && column == 7))
+                    else if ((row == 0 && column == 0) || (row == 0 && column == 7) && column != 8)
                     {
                         tower = new Tower(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = tower.GetButtonName();
@@ -146,7 +169,7 @@ namespace Online_Skak
                         GridName.Children.Add(tower.GetButton());
                         continue;
                     }
-                    else if ((row == 7 && column == 0)|| (row == 7 && column == 7))
+                    else if ((row == 7 && column == 0)|| (row == 7 && column == 7) && column != 8)
                     {
                         tower = new Tower(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = tower.GetButtonName();
@@ -154,7 +177,7 @@ namespace Online_Skak
                         GridName.Children.Add(tower.GetButton());
                         continue;
                     }
-                    else if ((row == 0 && column == 1) || (row == 0 && column == 6))
+                    else if ((row == 0 && column == 1) || (row == 0 && column == 6) && column != 8)
                     {
                         knight = new Knight(row, column, 0, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = knight.GetButtonName();
@@ -162,7 +185,7 @@ namespace Online_Skak
                         GridName.Children.Add(knight.GetButton());
                         continue;
                     }
-                    else if ((row == 7 && column == 1) || (row == 7 && column == 6))
+                    else if ((row == 7 && column == 1) || (row == 7 && column == 6) && column != 8)
                     {
                         knight = new Knight(row, column, 1, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = knight.GetButtonName();
@@ -170,7 +193,7 @@ namespace Online_Skak
                         GridName.Children.Add(knight.GetButton());
                         continue;
                     }
-                    else if (row == 0 && column == 2)
+                    else if (row == 0 && column == 2 )
                     {
                         bishop = new Bishop(row, column,"White", 0,  Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
                         objectArray[row, column] = bishop.GetButtonName();
@@ -234,10 +257,12 @@ namespace Online_Skak
                         GridName.Children.Add(queen.GetButton());
                         continue;
                     }
+                    else if(column != 8) { 
                     BoardButton boardButton = new BoardButton(row, column, counter, Btn_PreviewMouseLeftButtonDown);
                     objectArray[row, column] = boardButton.ToString();
                     counter++;
                     GridName.Children.Add(boardButton.GetButton());
+                    }
                 }
             }
             return objectArray;

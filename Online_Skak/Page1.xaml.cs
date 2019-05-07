@@ -45,30 +45,11 @@ namespace Online_Skak
            Application.Current.MainWindow.Close();
         }
 
-      /*  private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-
-            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();
-
-            // Updating the Label which displays the current second
-            test.Content = DateTime.Now.Second;
-
-            // Forcing the CommandManager to raise the RequerySuggested event
-            CommandManager.InvalidateRequerySuggested();
-        }*/
-
         private void Time_Loaded(object sender, RoutedEventArgs e)
         {
-            
             dispatcherTimer.Interval = TimeSpan.FromSeconds(1.0);
             dispatcherTimer.Tick += dtTicker;
             dispatcherTimer.Start();
-
-            
         }
 
         private int increment = 11;
@@ -80,7 +61,7 @@ namespace Online_Skak
             {
                 dispatcherTimer.Stop();
             }
-            dispatcherTimer.Start();               
+            //dispatcherTimer.Start();               
         }
     }
 }

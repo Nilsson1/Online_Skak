@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -11,48 +7,78 @@ namespace Online_Skak
 {
     class Timer
     {
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        Label label;
-
+        public DispatcherTimer dtWhite = new DispatcherTimer();
+        public DispatcherTimer dtBlack = new DispatcherTimer();
+        Label labelWhite, labelBlack ;
+       
+ 
         public Timer(int row, int column)
         {
-            label = new Label();
+            labelWhite = new Label();
+            labelBlack = new Label();
             //label.Name = "labelTime";
-            label.Content = "Test";
-            Grid.SetRow(label, row);
-            Grid.SetColumn(label, column);
+            labelWhite.Content = "Test";
+            labelBlack.Content = "test2";
+            Grid.SetRow(labelWhite, row);
+            Grid.SetColumn(labelWhite, column);
+            Grid.SetRow(labelBlack, row);
+            Grid.SetColumn(labelBlack, column);
+            labelWhite.Loaded += Time_Loaded;
+            labelBlack.Loaded += Timeloaded2;
 
-            label.Loaded += Time_Loaded;
-            
         }
 
         private void Time_Loaded(object sender, RoutedEventArgs e)
         {
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(1.0);
-            dispatcherTimer.Tick += dtTicker;
-            dispatcherTimer.Start();
-            label.Content = "hej";
+            dtWhite.Interval = TimeSpan.FromSeconds(1.0);
+            dtWhite.Tick += dtTickerWhite;
+            dtWhite.Start();
+            labelWhite.Content = " ";
             Console.WriteLine(sender + "_" + e);
         }
 
-        public Label GetLabel()
+        private void Timeloaded2(object sender, RoutedEventArgs e)
         {
-            return label;
+            dtBlack.Interval = TimeSpan.FromSeconds(1.0);
+            dtBlack.Tick += dtTickerBlack;
+            dtBlack.Start();
+            labelBlack.Content = " ";
+            Console.WriteLine(sender + "_" + e);
         }
 
-        private int increment = 11;
-        private void dtTicker(object sender, EventArgs e)
+        public Label GetLabelwhite()
         {
-            increment--;
-            label.Content = increment.ToString();
-            if ((String)label.Content == "5")
+            return labelWhite;
+        }
+
+        public Label GetLabelblack()
+        {
+            return labelBlack;
+        }
+
+        private int incrementwhite = 11;
+        private void dtTickerWhite(object sender, EventArgs e)
+        {
+            incrementwhite--;
+            labelWhite.Content = incrementwhite.ToString();
+            if ((String)labelWhite.Content == "0")
             {
-                dispatcherTimer.Stop();
+                dtWhite.Stop();
             }
-            //dispatcherTimer.Start();               
+            //dispatcherTimer.Start();
         }
 
-
+        private int incrementblack = 5;
+        private void dtTickerBlack(object sender, EventArgs e)
+        {
+            incrementblack--;
+            labelBlack.Content = incrementblack.ToString();
+            if ((String)labelBlack.Content == "0")
+            {
+                dtBlack.Stop();
+            }
+            //dispatcherTimer.Start();
+        }
     }
 
 }

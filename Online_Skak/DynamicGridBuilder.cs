@@ -38,7 +38,7 @@ namespace Online_Skak
         private int blackRightTower = 0;
         private int blackLeftTower = 0;
         Grid GridName;
-        Label time;
+        //Label time;
 
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
@@ -47,12 +47,6 @@ namespace Online_Skak
             serviceHandler = new ServiceHandler();
             serviceHandler.MessageRecieved += HandleMessage;
             
-
-
-            //timer.dispa
-
-            //time.Loaded("Time_Loaded");*/
-
             GridName = new Grid();
             GridName.Width = 800;
             GridName.Height = 800;
@@ -139,8 +133,19 @@ namespace Online_Skak
                 {
                     if (row == 3 && column == 8)
                     {
-                        Timer timer = new Timer(row, column);
-                        GridName.Children.Add(timer.GetLabel());
+                       Timer timerWhite = new Timer(row, column);
+                       GridName.Children.Add(timerWhite.GetLabelwhite());
+                       /*if (Btn_PreviewMouseLeftButtonUp(sender, e))
+                       {
+                            timer1.dispatcherTimer.Stop();
+                       }*/
+                    }
+
+                    if(row == 4 && column == 8)
+                    {
+                        Timer timerBlack = new Timer(row, column);
+                        //timer2.dtBlack.Stop();
+                        GridName.Children.Add(timerBlack.GetLabelblack());
                     }
 
 

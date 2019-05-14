@@ -23,7 +23,6 @@
             <Button x:Name="Settingsbutton" Content="Indstillinger" HorizontalAlignment="Left" Margin="639,329,0,0" VerticalAlignment="Top" Width="126" Height="33" Click="Settingsbutton_Click" FontSize="20" FontFamily="Yu Gothic UI Light"/>
             <Button x:Name="ExitGame" Content="Slut" HorizontalAlignment="Left" Margin="639,380,0,0" VerticalAlignment="Top" Width="126" Height="33" Click="ExitGame_Click" FontFamily="Yu Gothic UI Light" FontSize="20"/>
             <Label x:Name="Label" Content="Online skak" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="525,28,0,0" Background="{x:Null}" Foreground="White" FontSize="48" RenderTransformOrigin="0.507,0.476" FontWeight="Bold" FontFamily="Yu Gothic UI Light"/>
-            <Image HorizontalAlignment="Left" Height="100" Margin="518,102,0,0" VerticalAlignment="Top" Width="100"/>
         </Grid>
     </Grid>
 </Page>

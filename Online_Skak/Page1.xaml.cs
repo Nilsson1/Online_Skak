@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Online_Skak
 {
@@ -20,6 +21,7 @@ namespace Online_Skak
     /// </summary>
     public partial class Page1 : Page
     {
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
         public Page1()
         {
             InitializeComponent();

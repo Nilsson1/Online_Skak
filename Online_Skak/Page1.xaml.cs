@@ -44,24 +44,5 @@ namespace Online_Skak
         {
            Application.Current.MainWindow.Close();
         }
-
-        private void Time_Loaded(object sender, RoutedEventArgs e)
-        {
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(1.0);
-            dispatcherTimer.Tick += dtTicker;
-            dispatcherTimer.Start();
-        }
-
-        private int increment = 11;
-        private void dtTicker(object sender, EventArgs e)
-        {
-            increment--;
-            time.Content = increment.ToString();
-            if ((String)time.Content == "5")
-            {
-                dispatcherTimer.Stop();
-            }
-            //dispatcherTimer.Start();               
-        }
     }
 }

@@ -23,26 +23,27 @@ namespace Online_Skak
             Grid.SetColumn(labelWhite, column);
             Grid.SetRow(labelBlack, row);
             Grid.SetColumn(labelBlack, column);
-            labelWhite.Loaded += Time_Loaded;
-            labelBlack.Loaded += Timeloaded2;
+            labelWhite.Loaded += Time_LoadedWhite;
+            labelBlack.Loaded += TimeloadedBlack;
 
         }
 
-        private void Time_Loaded(object sender, RoutedEventArgs e)
+        private void Time_LoadedWhite(object sender, RoutedEventArgs e)
         {
             dtWhite.Interval = TimeSpan.FromSeconds(1.0);
-            dtWhite.Tick += dtTickerWhite;
-            dtWhite.Start();
-            labelWhite.Content = " ";
+            dtWhite.Tick += DtTickerWhite;
+            //dtWhite.Start();
+            labelWhite.Content = "10";
             Console.WriteLine(sender + "_" + e);
+
         }
 
-        private void Timeloaded2(object sender, RoutedEventArgs e)
+        private void TimeloadedBlack(object sender, RoutedEventArgs e)
         {
             dtBlack.Interval = TimeSpan.FromSeconds(1.0);
-            dtBlack.Tick += dtTickerBlack;
-            dtBlack.Start();
-            labelBlack.Content = " ";
+            dtBlack.Tick += DtTickerBlack;
+            //dtBlack.Start();
+            labelBlack.Content = "10";
             Console.WriteLine(sender + "_" + e);
         }
 
@@ -56,28 +57,50 @@ namespace Online_Skak
             return labelBlack;
         }
 
-        private int incrementwhite = 11;
-        private void dtTickerWhite(object sender, EventArgs e)
+        private int incrementwhite = 10;
+        private void DtTickerWhite(object sender, EventArgs e)
         {
             incrementwhite--;
             labelWhite.Content = incrementwhite.ToString();
             if ((String)labelWhite.Content == "0")
             {
                 dtWhite.Stop();
+                MessageBox.Show("izi pizy lemon squeezy black wins");
             }
             //dispatcherTimer.Start();
         }
 
-        private int incrementblack = 5;
-        private void dtTickerBlack(object sender, EventArgs e)
+        private int incrementblack = 10;
+        private void DtTickerBlack(object sender, EventArgs e)
         {
             incrementblack--;
             labelBlack.Content = incrementblack.ToString();
             if ((String)labelBlack.Content == "0")
             {
                 dtBlack.Stop();
+                MessageBox.Show("izi pizy lemon squeezy");
             }
             //dispatcherTimer.Start();
+        }
+
+        public void TimeStopWhite()
+        {
+            dtWhite.Stop();
+        }
+
+        public void TimeStopBlack()
+        {
+            dtBlack.Stop();
+        }
+
+        public void TimeStartWhite()
+        {
+            dtWhite.Start();
+        }
+
+        public void TimeStartBlack()
+        {
+            dtBlack.Start();
         }
     }
 

@@ -38,7 +38,9 @@ namespace Online_Skak
         private int blackRightTower = 0;
         private int blackLeftTower = 0;
         Grid GridName;
-        //Label time;
+        Timer timerWhite;
+        Timer timerBlack;
+
 
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
@@ -133,18 +135,13 @@ namespace Online_Skak
                 {
                     if (row == 3 && column == 8)
                     {
-                       Timer timerWhite = new Timer(row, column);
-                       GridName.Children.Add(timerWhite.GetLabelwhite());
-                       /*if (Btn_PreviewMouseLeftButtonUp(sender, e))
-                       {
-                            timer1.dispatcherTimer.Stop();
-                       }*/
+                        timerWhite = new Timer(row, column);
+                        GridName.Children.Add(timerWhite.GetLabelwhite());
                     }
 
                     if(row == 4 && column == 8)
                     {
-                        Timer timerBlack = new Timer(row, column);
-                        //timer2.dtBlack.Stop();
+                        timerBlack = new Timer(row, column);
                         GridName.Children.Add(timerBlack.GetLabelblack());
                     }
 
@@ -297,6 +294,16 @@ namespace Online_Skak
                         SetButtonColor(btn, InitRow, InitCol, row, column);
                         roundGameCounter++;
                         serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString());
+                        if (team == 0 && roundGameCounter > 1)
+                        {
+                            timerWhite.TimeStopWhite();
+                            timerBlack.TimeStartBlack();
+                        }
+                        else if (team == 1 && roundGameCounter > 1)
+                        {
+                            timerWhite.TimeStartWhite();
+                            timerBlack.TimeStopBlack();
+                        }
                     }
                     Console.WriteLine("Team is: " + team);
                 }

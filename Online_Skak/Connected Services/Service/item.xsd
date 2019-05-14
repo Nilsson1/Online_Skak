@@ -6,6 +6,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="IncrementNumber">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IncrementNumberResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IncrementNumberResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Subscribe">
     <xs:complexType>
       <xs:sequence />

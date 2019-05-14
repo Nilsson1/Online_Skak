@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 
 namespace Online_Skak
@@ -48,6 +49,11 @@ namespace Online_Skak
         {
             serviceHandler = new ServiceHandler();
             serviceHandler.MessageRecieved += HandleMessage;
+
+            bool canConnect = serviceHandler.GetCanConnect();
+
+
+
             
             GridName = new Grid();
             GridName.Width = 800;
@@ -101,9 +107,12 @@ namespace Online_Skak
             {
                 GridName.RowDefinitions.Add(r);
             }
-            
-            Form.frame.Content = GridName;
 
+            if (canConnect)
+            {
+                Console.WriteLine("Cant Connect");
+                Form.frame.Content = GridName;
+            }
         }
 
         public void HandleMessage(string message)
@@ -122,7 +131,15 @@ namespace Online_Skak
 
             b = SwapTwoButtons(sender, InitRow, InitCol, row, column);
             SetButtonColor(b, InitRow, InitCol, row, column);
+            
             roundGameCounter++;
+
+            if (roundGameCounter > 1)
+            {
+                Time(roundGameCounter);
+            }
+
+
         }
 
         //Creates 64 buttons for the chess board.
@@ -293,20 +310,29 @@ namespace Online_Skak
                         btn = SwapTwoButtons(s, InitRow, InitCol, row, column);
                         SetButtonColor(btn, InitRow, InitCol, row, column);
                         roundGameCounter++;
-                        serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString());
-                        if (team == 0 && roundGameCounter > 1)
+                        serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString() + "," + team);
+
+                        if (roundGameCounter > 1)
                         {
-                            timerWhite.TimeStopWhite();
-                            timerBlack.TimeStartBlack();
-                        }
-                        else if (team == 1 && roundGameCounter > 1)
-                        {
-                            timerWhite.TimeStartWhite();
-                            timerBlack.TimeStopBlack();
+                            Time(roundGameCounter);
                         }
                     }
                     Console.WriteLine("Team is: " + team);
                 }
+            }
+        }
+
+        private void Time(int roundGameCounter)
+        {
+            if(roundGameCounter % 2 == 1)
+            {
+                timerWhite.TimeStopWhite();
+                timerBlack.TimeStartBlack();
+            }
+            else
+            {
+                timerWhite.TimeStartWhite();
+                timerBlack.TimeStopBlack();
             }
         }
 
@@ -488,6 +514,7 @@ namespace Online_Skak
             {
                 if (objectArray[0,i] == "Pawn_1")
                 {
+                    Console.WriteLine("queen spawn");
                     SpawnQueenButton(1, row, column);
                 }
                 if(objectArray[7,i] == "Pawn_0")
@@ -761,6 +788,7 @@ namespace Online_Skak
         {
 
             Queen queen = new Queen(row, column, team, Btn_PreviewMouseLeftButtonUp, Btn_PreviewMouseLeftButtonDown);
+            GridName.Children.Add(queen.GetButton());
             objectArray[row, column] = queen.GetButtonName();
             
         }

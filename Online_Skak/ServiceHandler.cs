@@ -4,6 +4,8 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Navigation;
 
 namespace Online_Skak
 {
@@ -12,7 +14,8 @@ namespace Online_Skak
         private Guid _clientId;
         private Service.HelloServiceClient _helloServiceClient;
         private ServiceCallback _helloServiceCallback;
-
+        private int clientCounter;
+        private bool canConnect = true;
 
         public ServiceHandler()
         {
@@ -20,9 +23,24 @@ namespace Online_Skak
             _helloServiceCallback.ClientNotified += HelloServiceCallback_ClientNotified;
             _helloServiceClient = new Service.HelloServiceClient(new InstanceContext(_helloServiceCallback));
             _clientId = _helloServiceClient.Subscribe();
+            MessageBox.Show(_helloServiceClient.InnerChannel.SessionId);
+            clientCounter = _helloServiceClient.IncrementNumber();
+            ConnectToGame();
         }
 
+        private void ConnectToGame()
+        {
+            if (clientCounter > 2)
+            {
+                MessageBox.Show("Error: 2 Players are already connected");
+                canConnect = false;
+            }
+        }
 
+        public bool GetCanConnect()
+        {
+            return canConnect;
+        }
 
         public void SendMessage(string message)
         {

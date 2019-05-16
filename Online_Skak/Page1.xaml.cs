@@ -28,14 +28,14 @@ namespace Online_Skak
         }
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            DynamicGridBuilder d = new DynamicGridBuilder();
+            DynamicGridBuilder d = new DynamicGridBuilder(false);
             d.CreateBoardButtons();
 
         }
 
         private void PlayButton_Time(object sender, RoutedEventArgs e)
         {
-            DynamicGridBuilder d = new DynamicGridBuilder();
+            DynamicGridBuilder d = new DynamicGridBuilder(true);
             d.CreateBoardButtons();
 
         }

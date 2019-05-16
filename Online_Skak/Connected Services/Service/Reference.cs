@@ -21,6 +21,12 @@ namespace Online_Skak.Service {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/IncrementNumber", ReplyAction="http://tempuri.org/IHelloService/IncrementNumberResponse")]
         System.Threading.Tasks.Task<int> IncrementNumberAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/DecrementNumber", ReplyAction="http://tempuri.org/IHelloService/DecrementNumberResponse")]
+        int DecrementNumber();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/DecrementNumber", ReplyAction="http://tempuri.org/IHelloService/DecrementNumberResponse")]
+        System.Threading.Tasks.Task<int> DecrementNumberAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/GetClientID", ReplyAction="http://tempuri.org/IHelloService/GetClientIDResponse")]
         System.Guid GetClientID(int i);
         
@@ -84,6 +90,14 @@ namespace Online_Skak.Service {
         
         public System.Threading.Tasks.Task<int> IncrementNumberAsync() {
             return base.Channel.IncrementNumberAsync();
+        }
+        
+        public int DecrementNumber() {
+            return base.Channel.DecrementNumber();
+        }
+        
+        public System.Threading.Tasks.Task<int> DecrementNumberAsync() {
+            return base.Channel.DecrementNumberAsync();
         }
         
         public System.Guid GetClientID(int i) {

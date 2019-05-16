@@ -35,14 +35,17 @@
       <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IHelloService_GetMessage_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetMessage" />
-  </wsdl:message>
   <wsdl:message name="IHelloService_IncrementNumber_InputMessage">
     <wsdl:part name="parameters" element="tns:IncrementNumber" />
   </wsdl:message>
   <wsdl:message name="IHelloService_IncrementNumber_OutputMessage">
     <wsdl:part name="parameters" element="tns:IncrementNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHelloService_GetClientID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientID" />
+  </wsdl:message>
+  <wsdl:message name="IHelloService_GetClientID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClientIDResponse" />
   </wsdl:message>
   <wsdl:message name="IHelloService_Subscribe_InputMessage">
     <wsdl:part name="parameters" element="tns:Subscribe" />
@@ -60,12 +63,13 @@
     <wsdl:part name="parameters" element="tns:HandleMessage" />
   </wsdl:message>
   <wsdl:portType name="IHelloService">
-    <wsdl:operation name="GetMessage">
-      <wsdl:input wsaw:Action="http://tempuri.org/IHelloService/GetMessage" message="tns:IHelloService_GetMessage_InputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="IncrementNumber">
       <wsdl:input wsaw:Action="http://tempuri.org/IHelloService/IncrementNumber" message="tns:IHelloService_IncrementNumber_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHelloService/IncrementNumberResponse" message="tns:IHelloService_IncrementNumber_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHelloService/GetClientID" message="tns:IHelloService_GetClientID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHelloService/GetClientIDResponse" message="tns:IHelloService_GetClientID_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Subscribe">
       <wsdl:input wsaw:Action="http://tempuri.org/IHelloService/Subscribe" message="tns:IHelloService_Subscribe_InputMessage" />
@@ -84,14 +88,17 @@
   <wsdl:binding name="NetTcpBinding_IHelloService" type="tns:IHelloService">
     <wsp:PolicyReference URI="#NetTcpBinding_IHelloService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="GetMessage">
-      <soap12:operation soapAction="http://tempuri.org/IHelloService/GetMessage" style="document" />
+    <wsdl:operation name="IncrementNumber">
+      <soap12:operation soapAction="http://tempuri.org/IHelloService/IncrementNumber" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="IncrementNumber">
-      <soap12:operation soapAction="http://tempuri.org/IHelloService/IncrementNumber" style="document" />
+    <wsdl:operation name="GetClientID">
+      <soap12:operation soapAction="http://tempuri.org/IHelloService/GetClientID" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

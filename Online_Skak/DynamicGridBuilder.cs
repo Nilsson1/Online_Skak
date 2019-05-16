@@ -38,6 +38,7 @@ namespace Online_Skak
         private int blackKing = 0;
         private int blackRightTower = 0;
         private int blackLeftTower = 0;
+        private int playerTeam;
         Grid GridName;
         Timer timerWhite;
         Timer timerBlack;
@@ -110,9 +111,10 @@ namespace Online_Skak
 
             if (canConnect)
             {
-                Console.WriteLine("Cant Connect");
+                Console.WriteLine("Can Connect");
                 Form.frame.Content = GridName;
             }
+            playerTeam = serviceHandler.IsPlayerWhiteTeam();
         }
 
         public void HandleMessage(string message)
@@ -138,8 +140,6 @@ namespace Online_Skak
             {
                 Time(roundGameCounter);
             }
-
-
         }
 
         //Creates 64 buttons for the chess board.
@@ -303,7 +303,7 @@ namespace Online_Skak
 
             if ((InitRow != row || InitCol != column))
             {
-                if(team == roundGameCounter % 2)
+                if(team == roundGameCounter % 2 && team == playerTeam)
                 {
                     if (MoveChessPiece(InitRow, InitCol, row, column, s))
                     {

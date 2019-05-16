@@ -65,7 +65,7 @@ namespace Online_Skak
             if ((String)labelWhite.Content == "0")
             {
                 dtWhite.Stop();
-                MessageBox.Show("izi pizy lemon squeezy black wins");
+                MessageBox.Show("White has run out of time: Black wins!");
             }
             //dispatcherTimer.Start();
         }
@@ -78,7 +78,7 @@ namespace Online_Skak
             if ((String)labelBlack.Content == "0")
             {
                 dtBlack.Stop();
-                MessageBox.Show("izi pizy lemon squeezy");
+                MessageBox.Show("Black has run out of time: White wins!");
             }
             //dispatcherTimer.Start();
         }

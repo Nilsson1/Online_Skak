@@ -23,7 +23,6 @@ namespace Online_Skak
             _helloServiceCallback.ClientNotified += HelloServiceCallback_ClientNotified;
             _helloServiceClient = new Service.HelloServiceClient(new InstanceContext(_helloServiceCallback));
             _clientId = _helloServiceClient.Subscribe();
-            MessageBox.Show(_helloServiceClient.InnerChannel.SessionId);
             clientCounter = _helloServiceClient.IncrementNumber();
             ConnectToGame();
         }
@@ -34,6 +33,18 @@ namespace Online_Skak
             {
                 MessageBox.Show("Error: 2 Players are already connected");
                 canConnect = false;
+            }
+        }
+
+        public int IsPlayerWhiteTeam()
+        {
+            if(_clientId.ToString() == _helloServiceClient.GetClientID(0).ToString())
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
             }
         }
 

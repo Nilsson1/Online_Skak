@@ -35,14 +35,9 @@ namespace Online_Skak
 
         private void Settingsbutton_Click(object sender, RoutedEventArgs e)
         {
-            /*
             main.Content = new Settings(this);
-            menu.Visibility = Visibility.Hidden;*/
+            menu.Visibility = Visibility.Hidden;
 
-            Settings settings = new Settings();
-            //settings.GetGameMode();
-
-            
         }
 
         private void ExitGame_Click(object sender, RoutedEventArgs e)

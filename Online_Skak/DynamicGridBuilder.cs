@@ -150,7 +150,7 @@ namespace Online_Skak
         }
         
         //Creates 64 buttons for the chess board.
-        public string[,] CreateBoardButtons()
+        public void CreateBoardButtons()
         {
             Button[,] buttonArray = new Button[8, 9];
             for (int row = 0; row < 8; row++)
@@ -293,7 +293,6 @@ namespace Online_Skak
                     }
                 }
             }
-            return objectArray;
         }
 
         //This is called whenever a button is released (no longer pressed down).

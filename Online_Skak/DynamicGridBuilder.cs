@@ -39,6 +39,7 @@ namespace Online_Skak
         private int blackRightTower = 0;
         private int blackLeftTower = 0;
         private int playerTeam;
+        private bool playWithTimer;
         Grid GridName;
         Timer timerWhite;
         Timer timerBlack;
@@ -47,8 +48,9 @@ namespace Online_Skak
 
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
 
-        public DynamicGridBuilder()
+        public DynamicGridBuilder(bool playWithTime)
         {
+            playWithTimer = playWithTime;
             serviceHandler = new ServiceHandler();
             serviceHandler.MessageRecieved += HandleMessage;
 
@@ -141,7 +143,7 @@ namespace Online_Skak
             
             roundGameCounter++;
 
-            if (roundGameCounter > 1)
+            if (roundGameCounter > 1 && playWithTimer)
             {
                 Time(roundGameCounter);
             }
@@ -155,16 +157,19 @@ namespace Online_Skak
             {
                 for (int column = 0; column < 9; column++)
                 {
-                    if (row == 3 && column == 8)
+                    if (playWithTimer)
                     {
-                        timerWhite = new Timer(row, column);
-                        GridName.Children.Add(timerWhite.GetLabelwhite());
-                    }
+                        if (row == 3 && column == 8)
+                        {
+                            timerWhite = new Timer(row, column);
+                            GridName.Children.Add(timerWhite.GetLabelwhite());
+                        }
 
-                    if(row == 4 && column == 8)
-                    {
-                        timerBlack = new Timer(row, column);
-                        GridName.Children.Add(timerBlack.GetLabelblack());
+                        if (row == 4 && column == 8)
+                        {
+                            timerBlack = new Timer(row, column);
+                            GridName.Children.Add(timerBlack.GetLabelblack());
+                        }
                     }
 
 
@@ -318,7 +323,7 @@ namespace Online_Skak
                         serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString() + "," + team);
                         UpdateTurnLabel();
 
-                        if (roundGameCounter > 1)
+                        if (roundGameCounter > 1 && playWithTimer)
                         {
                             Time(roundGameCounter);
                         }

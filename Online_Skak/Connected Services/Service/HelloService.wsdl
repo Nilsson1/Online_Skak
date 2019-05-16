@@ -41,6 +41,12 @@
   <wsdl:message name="IHelloService_IncrementNumber_OutputMessage">
     <wsdl:part name="parameters" element="tns:IncrementNumberResponse" />
   </wsdl:message>
+  <wsdl:message name="IHelloService_DecrementNumber_InputMessage">
+    <wsdl:part name="parameters" element="tns:DecrementNumber" />
+  </wsdl:message>
+  <wsdl:message name="IHelloService_DecrementNumber_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DecrementNumberResponse" />
+  </wsdl:message>
   <wsdl:message name="IHelloService_GetClientID_InputMessage">
     <wsdl:part name="parameters" element="tns:GetClientID" />
   </wsdl:message>
@@ -67,6 +73,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IHelloService/IncrementNumber" message="tns:IHelloService_IncrementNumber_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHelloService/IncrementNumberResponse" message="tns:IHelloService_IncrementNumber_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="DecrementNumber">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHelloService/DecrementNumber" message="tns:IHelloService_DecrementNumber_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHelloService/DecrementNumberResponse" message="tns:IHelloService_DecrementNumber_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetClientID">
       <wsdl:input wsaw:Action="http://tempuri.org/IHelloService/GetClientID" message="tns:IHelloService_GetClientID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IHelloService/GetClientIDResponse" message="tns:IHelloService_GetClientID_OutputMessage" />
@@ -90,6 +100,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="IncrementNumber">
       <soap12:operation soapAction="http://tempuri.org/IHelloService/IncrementNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecrementNumber">
+      <soap12:operation soapAction="http://tempuri.org/IHelloService/DecrementNumber" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

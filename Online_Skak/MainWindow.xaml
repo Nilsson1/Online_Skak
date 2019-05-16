@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Online_Skak"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900 " Width="900">
+        Title="Skak" Height="900 " Width="900">
 
         <Frame x:Name="frame"/>
 

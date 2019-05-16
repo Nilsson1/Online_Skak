@@ -15,11 +15,17 @@ namespace Online_Skak.Service {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Service.IHelloService", CallbackContract=typeof(Online_Skak.Service.IHelloServiceCallback))]
     public interface IHelloService {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IHelloService/GetMessage")]
-        void GetMessage();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/IncrementNumber", ReplyAction="http://tempuri.org/IHelloService/IncrementNumberResponse")]
+        int IncrementNumber();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IHelloService/GetMessage")]
-        System.Threading.Tasks.Task GetMessageAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/IncrementNumber", ReplyAction="http://tempuri.org/IHelloService/IncrementNumberResponse")]
+        System.Threading.Tasks.Task<int> IncrementNumberAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/GetClientID", ReplyAction="http://tempuri.org/IHelloService/GetClientIDResponse")]
+        System.Guid GetClientID(int i);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/GetClientID", ReplyAction="http://tempuri.org/IHelloService/GetClientIDResponse")]
+        System.Threading.Tasks.Task<System.Guid> GetClientIDAsync(int i);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHelloService/Subscribe", ReplyAction="http://tempuri.org/IHelloService/SubscribeResponse")]
         System.Guid Subscribe();
@@ -72,12 +78,20 @@ namespace Online_Skak.Service {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void GetMessage() {
-            base.Channel.GetMessage();
+        public int IncrementNumber() {
+            return base.Channel.IncrementNumber();
         }
         
-        public System.Threading.Tasks.Task GetMessageAsync() {
-            return base.Channel.GetMessageAsync();
+        public System.Threading.Tasks.Task<int> IncrementNumberAsync() {
+            return base.Channel.IncrementNumberAsync();
+        }
+        
+        public System.Guid GetClientID(int i) {
+            return base.Channel.GetClientID(i);
+        }
+        
+        public System.Threading.Tasks.Task<System.Guid> GetClientIDAsync(int i) {
+            return base.Channel.GetClientIDAsync(i);
         }
         
         public System.Guid Subscribe() {

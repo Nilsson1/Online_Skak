@@ -21,20 +21,36 @@ namespace Online_Skak
     /// </summary>
     public partial class Settings : Page
     {
+        RadioButton radioButton;
         Page1 page1;
+        private bool radioIsChecked = false;
 
-        public Settings(Page1 test)
+        public Settings()
         {
-            page1 = test;
+            //page1 = test;
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            
            // Head.Content = new Menu();
             page1.menu.Visibility = Visibility.Visible;
             page1.main.Content = null;
+
+           
         }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            radioButton = sender as RadioButton;
+            radioIsChecked = true;
+        }
+        /*
+        public string GetGameMode()
+        {
+            if(radioIsChecked)
+            return radioButton.Content.ToString();
+        }*/
     }
 }

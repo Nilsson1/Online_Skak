@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Online_Skak.App" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.Bishop">
+    <Position X="9.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Bishop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.BoardButton">
+    <Position X="14" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>BoardButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.ButtonClass" Collapsed="true">
+    <Position X="9.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAACAAAAAAAkAAAAAAAAAAAgIAAEAAAA=</HashCode>
+      <FileName>ButtonClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.DynamicGridBuilder" Collapsed="true">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIQRYBQggCIggHBJqFIIHgiQQCQRgWAA8iEwAMAAQQ=</HashCode>
+      <FileName>DynamicGridBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.King">
+    <Position X="2.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAIAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>King.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.Knight">
+    <Position X="11.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAABAAQAA=</HashCode>
+      <FileName>Knight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Online_Skak.Page1" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAACAAAAAAABAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Page1.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Online_Skak.Pawn" Collapsed="true">
+    <Position X="16.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAIAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAQAA=</HashCode>
+      <FileName>Pawn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.Queen">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAEAAAIAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Queen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.ServiceCallback" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAgAAAAAAACAAAA=</HashCode>
+      <FileName>ServiceCallback.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Online_Skak.ClientNotifiedEventArgs" Collapsed="true">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAIAAAAAA=</HashCode>
+      <FileName>ServiceCallback.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.ServiceHandler" Collapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAQAQAAAAAAAAAACAAAAAAAAAAAAADAAAEAACAAAw=</HashCode>
+      <FileName>ServiceHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.Timer" Collapsed="true">
+    <Position X="22.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CABAAEABAAAAYMAAAAAABgAAAAAEgAAAEAAABAAAEAA=</HashCode>
+      <FileName>Timer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.Tower">
+    <Position X="7.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Tower.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.Service.HelloServiceClient" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAQACAAAAAQAAAAACASAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connected Services\Service\Reference.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Online_Skak.Properties.Resources" Collapsed="true">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Online_Skak.Properties.Settings" Collapsed="true">
+    <Position X="20.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Online_Skak.Service.IHelloService">
+    <Position X="9.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAQACAAAAAQAAAAACASAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connected Services\Service\Reference.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Online_Skak.Service.IHelloServiceCallback" Collapsed="true">
+    <Position X="19" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Connected Services\Service\Reference.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Online_Skak.Service.IHelloServiceChannel">
+    <Position X="9.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connected Services\Service\Reference.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -115,6 +115,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram.cd" />
     <None Include="Connected Services\Service\HelloService.wsdl" />
     <None Include="Connected Services\Service\item.xsd">
       <SubType>Designer</SubType>

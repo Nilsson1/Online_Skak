@@ -42,6 +42,7 @@ namespace Online_Skak
         Grid GridName;
         Timer timerWhite;
         Timer timerBlack;
+        Label playerTurn;
 
 
         MainWindow Form = Application.Current.Windows[0] as MainWindow;
@@ -52,9 +53,6 @@ namespace Online_Skak
             serviceHandler.MessageRecieved += HandleMessage;
 
             bool canConnect = serviceHandler.GetCanConnect();
-
-
-
             
             GridName = new Grid();
             GridName.Width = 800;
@@ -98,6 +96,11 @@ namespace Online_Skak
             listR.Add(r5);
             listR.Add(r6);
             listR.Add(r7);
+            playerTurn = new Label();
+            Grid.SetColumn(playerTurn, 8);
+            Grid.SetRow(playerTurn, 0);
+            playerTurn.Content = "Turn: White";
+            GridName.Children.Add(playerTurn);
 
             foreach (ColumnDefinition c in listC)
             {
@@ -133,6 +136,8 @@ namespace Online_Skak
 
             b = SwapTwoButtons(sender, InitRow, InitCol, row, column);
             SetButtonColor(b, InitRow, InitCol, row, column);
+
+            UpdateTurnLabel();
             
             roundGameCounter++;
 
@@ -311,6 +316,7 @@ namespace Online_Skak
                         SetButtonColor(btn, InitRow, InitCol, row, column);
                         roundGameCounter++;
                         serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString() + "," + team);
+                        UpdateTurnLabel();
 
                         if (roundGameCounter > 1)
                         {
@@ -320,6 +326,19 @@ namespace Online_Skak
                     Console.WriteLine("Team is: " + team);
                 }
             }
+        }
+
+        private void UpdateTurnLabel()
+        {
+            if(team == 0)
+            {
+                playerTurn.Content = "Turn: Black";
+            }
+            else
+            {
+                playerTurn.Content = "Turn: White";
+            }
+
         }
 
         private void Time(int roundGameCounter)

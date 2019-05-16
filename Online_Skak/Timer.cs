@@ -33,7 +33,7 @@ namespace Online_Skak
             dtWhite.Interval = TimeSpan.FromSeconds(1.0);
             dtWhite.Tick += DtTickerWhite;
             //dtWhite.Start();
-            labelWhite.Content = "10";
+            labelWhite.Content = "300";
             Console.WriteLine(sender + "_" + e);
 
         }
@@ -43,7 +43,7 @@ namespace Online_Skak
             dtBlack.Interval = TimeSpan.FromSeconds(1.0);
             dtBlack.Tick += DtTickerBlack;
             //dtBlack.Start();
-            labelBlack.Content = "10";
+            labelBlack.Content = "300";
             Console.WriteLine(sender + "_" + e);
         }
 
@@ -57,7 +57,7 @@ namespace Online_Skak
             return labelBlack;
         }
 
-        private int incrementwhite = 10;
+        private int incrementwhite = 300;
         private void DtTickerWhite(object sender, EventArgs e)
         {
             incrementwhite--;
@@ -70,7 +70,7 @@ namespace Online_Skak
             //dispatcherTimer.Start();
         }
 
-        private int incrementblack = 10;
+        private int incrementblack = 300;
         private void DtTickerBlack(object sender, EventArgs e)
         {
             incrementblack--;

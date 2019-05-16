@@ -33,10 +33,10 @@ namespace Online_Skak
 
         }
 
-        private void Settingsbutton_Click(object sender, RoutedEventArgs e)
+        private void PlayButton_Time(object sender, RoutedEventArgs e)
         {
-            main.Content = new Settings(this);
-            menu.Visibility = Visibility.Hidden;
+            DynamicGridBuilder d = new DynamicGridBuilder();
+            d.CreateBoardButtons();
 
         }
 

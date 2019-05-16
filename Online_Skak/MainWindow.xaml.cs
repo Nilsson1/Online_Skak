@@ -14,7 +14,7 @@ namespace Online_Skak
         public MainWindow()
         {
             InitializeComponent();
-            SetSource("Page1.xaml");
+            SetSource("Menu.xaml");
         }
         public void SetSource(string URL)
         {

@@ -533,7 +533,15 @@ namespace Online_Skak
             if(kingCounter < 2)
             {
                 string[] winner = kingString.Split('_');
-                MessageBoxResult result = MessageBox.Show("The Winner is Team: " + winner[1]);
+                if(winner[1] == "0")
+                {
+                    MessageBox.Show("White Player wins!");
+                }
+                else
+                {
+                    MessageBox.Show("Black Player wins!");
+                }
+                
                 Console.WriteLine(kingString);
                 System.Windows.Application.Current.Shutdown();
             }

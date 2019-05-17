@@ -135,12 +135,13 @@ namespace Online_Skak
             InitCol = Int32.Parse(splitMsg[2]);
             row = Int32.Parse(splitMsg[3]);
             column = Int32.Parse(splitMsg[4]);
+            roundGameCounter = Int32.Parse(splitMsg[5]);
 
             b = SwapTwoButtons(sender, InitRow, InitCol, row, column);
             SetButtonColor(b, InitRow, InitCol, row, column);
 
             UpdateTurnLabel();
-            
+
             roundGameCounter++;
 
             if (roundGameCounter > 1 && playWithTimer)
@@ -309,6 +310,7 @@ namespace Online_Skak
             string s = b.Name;
 
             FindChessPieceTeam(s);
+            Console.WriteLine("Team: " + team + "round: " + roundGameCounter);
 
             if ((InitRow != row || InitCol != column))
             {
@@ -318,8 +320,8 @@ namespace Online_Skak
                     {
                         btn = SwapTwoButtons(s, InitRow, InitCol, row, column);
                         SetButtonColor(btn, InitRow, InitCol, row, column);
+                        serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString() + "," + roundGameCounter.ToString());
                         roundGameCounter++;
-                        serviceHandler.SendMessage(btn.Name + "," + InitRow.ToString() + "," + InitCol.ToString() + "," + row.ToString() + "," + column.ToString() + "," + team);
                         UpdateTurnLabel();
 
                         if (roundGameCounter > 1 && playWithTimer)
@@ -396,10 +398,11 @@ namespace Online_Skak
                 {
                     if(objectArray[InitRow, InitCol+1] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol+2] == "Online_Skak.BoardButton" && ((whiteRightTower == 0 && whiteKing == 0 && roundGameCounter % 2 == 0) || (blackRightTower == 0 && blackKing == 0 && roundGameCounter % 2 != 0)))
                     {
-                        serviceHandler.SendMessage(kingName + ", " + InitRow.ToString() + ", " + InitCol.ToString() + ", " + row.ToString() + ", " + (column-1).ToString());
-                        serviceHandler.SendMessage(towerName + ", " + row.ToString() + ", " + column.ToString() + ", " + InitRow.ToString() + ", " + (InitCol+1).ToString());
+                        serviceHandler.SendMessage(kingName + ", " + InitRow.ToString() + ", " + InitCol.ToString() + ", " + row.ToString() + ", " + (column-1).ToString() + "," + roundGameCounter.ToString());
+                        serviceHandler.SendMessage(towerName + ", " + row.ToString() + ", " + column.ToString() + ", " + InitRow.ToString() + ", " + (InitCol+1).ToString() + "," + roundGameCounter.ToString());
                         SwapTwoButtons(towerName, row, column, InitRow, InitCol+1);
                         SwapTwoButtons(kingName, InitRow, InitCol, row, column-1);
+                        UpdateTurnLabel();
                         roundGameCounter++;
                     }
                 }
@@ -408,10 +411,11 @@ namespace Online_Skak
                     if (objectArray[InitRow, InitCol - 1] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol - 2] == "Online_Skak.BoardButton" && objectArray[InitRow, InitCol - 3] == "Online_Skak.BoardButton" &&
                         ((whiteLeftTower == 0 && whiteKing == 0 && roundGameCounter % 2 == 0) || (blackLeftTower == 0 && blackKing == 0 && roundGameCounter % 2 != 0) ))
                     {
-                        serviceHandler.SendMessage(towerName + ", " + row.ToString() + ", " + column.ToString() + ", " + InitRow.ToString() + ", " + (column+3).ToString());
-                        serviceHandler.SendMessage(kingName + ", " + InitRow.ToString() + ", " + InitCol.ToString() + ", " + row.ToString() + ", " + (InitCol - 2).ToString());
+                        serviceHandler.SendMessage(towerName + ", " + row.ToString() + ", " + column.ToString() + ", " + InitRow.ToString() + ", " + (column+3).ToString() + "," + roundGameCounter.ToString());
+                        serviceHandler.SendMessage(kingName + ", " + InitRow.ToString() + ", " + InitCol.ToString() + ", " + row.ToString() + ", " + (InitCol - 2).ToString() + "," + roundGameCounter.ToString());
                         SwapTwoButtons(towerName, row, column, InitRow, column + 3);
                         SwapTwoButtons(kingName, InitRow, InitCol, row, InitCol - 2);
+                        UpdateTurnLabel();
                         roundGameCounter++;
                     }
                 }

@@ -36,6 +36,7 @@ namespace Online_Skak
             }
         }
 
+
         public int IsPlayerWhiteTeam()
         {
             if(_clientId.ToString() == _helloServiceClient.GetClientID(0).ToString())

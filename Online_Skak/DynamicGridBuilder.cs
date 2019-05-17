@@ -101,7 +101,8 @@ namespace Online_Skak
             playerTurn = new Label();
             Grid.SetColumn(playerTurn, 8);
             Grid.SetRow(playerTurn, 0);
-            playerTurn.Content = "Turn: White";
+
+
             GridName.Children.Add(playerTurn);
 
             foreach (ColumnDefinition c in listC)
@@ -120,6 +121,15 @@ namespace Online_Skak
                 Form.frame.Content = GridName;
             }
             playerTeam = serviceHandler.IsPlayerWhiteTeam();
+
+            if (playerTeam == 0)
+            {
+                playerTurn.Content = "You are White!" + Environment.NewLine + "Turn: White";
+            }
+            else
+            {
+                playerTurn.Content = "You are Black!" + Environment.NewLine + "Turn: White";
+            }
         }
 
         public void HandleMessage(string message)
@@ -336,13 +346,21 @@ namespace Online_Skak
 
         private void UpdateTurnLabel()
         {
-            if(team == 0)
+            if(team == 0 && playerTeam == 0)
             {
-                playerTurn.Content = "Turn: Black";
+                playerTurn.Content = "You are White!" + Environment.NewLine + "Turn: Black";
             }
-            else
+            else if(team == 0 && playerTeam == 1)
             {
-                playerTurn.Content = "Turn: White";
+                playerTurn.Content = "You are Black!" + Environment.NewLine + "Turn: Black";
+            }
+            else if(team == 1 && playerTeam == 0)
+            {
+                playerTurn.Content = "You are White!" + Environment.NewLine + "Turn: White";
+            }
+            else if(team == 1 && playerTeam == 1)
+            {
+                playerTurn.Content = "You are Black!" + Environment.NewLine + "Turn: White";
             }
 
         }
